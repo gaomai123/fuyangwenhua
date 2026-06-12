@@ -1,0 +1,39 @@
+<view class="page resume-status-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <navigator class="back-fab" open-type="navigateBack" delta="1" hover-class="back-fab-hover">‹</navigator>
+
+  <view class="page-head">
+    <view class="eyebrow">CAREER DEVELOPMENT</view>
+    <view class="page-title">晋升申请进度</view>
+    <view class="page-desc">查看晋升通道申请及审核结果</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+  <view wx:elif="{{applications.length === 0}}" class="empty">
+    暂无晋升申请
+    <button class="primary-button submit-button" bindtap="goPromotion">去提交申请</button>
+  </view>
+
+  <view wx:else class="submission-list">
+    <view wx:for="{{applications}}" wx:key="id" class="submission-card">
+      <view class="card-head">
+        <view>
+          <view class="stage-name">{{item.target_position}}</view>
+          <view class="meta">{{item.store}} / {{item.current_position}}</view>
+        </view>
+        <view class="status-badge status-{{item.status}}">{{item.status_label}}</view>
+      </view>
+      <view class="info-grid">
+        <view><text class="label">申请人</text><text>{{item.name}}</text></view>
+        <view><text class="label">提交时间</text><text>{{item.display_date}}</text></view>
+        <view><text class="label">所在门店</text><text>{{item.store}}</text></view>
+        <view><text class="label">现任职位</text><text>{{item.current_position}}</text></view>
+        <view><text class="label">更新时间</text><text>{{item.display_updated}}</text></view>
+        <view><text class="label">当前状态</text><text>{{item.status_label}}</text></view>
+      </view>
+      <view class="success-box">{{item.ability_statement}}</view>
+      <view wx:if="{{item.review_note}}" class="review-note">审核意见：{{item.review_note}}</view>
+    </view>
+  </view>
+  <view class="bottom-space"></view>
+</view>

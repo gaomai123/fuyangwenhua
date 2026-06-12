@@ -1,0 +1,129 @@
+﻿<view class="page detail-page">
+  
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <navigator class="back-fab" open-type="navigateBack" delta="1" hover-class="back-fab-hover">‹</navigator>
+<view wx:if="{{loading}}" class="empty">{{texts.loading}}</view>
+
+  <view wx:elif="{{artist}}" class="detail">
+    <view class="profile-hero">
+      <image wx:if="{{artist.avatar_url}}" class="hero-image" src="{{artist.avatar_url}}" mode="aspectFill"></image>
+      <view wx:else class="hero-image placeholder">A</view>
+      <view class="hero-panel">
+        <view class="hero-name-row">
+          <view class="name">{{artist.stage_name}}</view>
+          <view class="status {{artist.status_class}}">{{artist.status_label}}</view>
+        </view>
+        <view class="meta-row">
+          <text>{{artist.gender || '-'}}</text>
+          <text>{{artist.city || '-'}}</text>
+          <text>{{artist.display_category}}</text>
+        </view>
+        <view class="hero-line">
+          <text>{{texts.singingType}}</text>
+          <text>{{artist.display_singing_type}}</text>
+        </view>
+        <view class="hero-line">
+          <text>{{texts.dispatch}}</text>
+          <text>{{artist.display_dispatch}}</text>
+        </view>
+        <view class="hero-line salary-line">
+          <text>{{texts.salary}}</text>
+          <text>{{artist.display_salary}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">{{texts.basicInfo}}</view>
+      <view class="info-grid">
+        <view><text class="label">{{texts.gender}}</text><text>{{artist.gender || '-'}}</text></view>
+        <view><text class="label">{{texts.age}}</text><text>{{artist.age || '-'}}</text></view>
+        <view><text class="label">{{texts.height}}</text><text>{{artist.height || '-'}}</text></view>
+        <view><text class="label">{{texts.city}}</text><text>{{artist.city || '-'}}</text></view>
+        <view><text class="label">{{texts.category}}</text><text>{{artist.display_category}}</text></view>
+        <view><text class="label">{{texts.singingType}}</text><text>{{artist.display_singing_type}}</text></view>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">{{texts.bio}}</view>
+      <view class="bio">{{artist.display_bio}}</view>
+    </view>
+
+    <view wx:if="{{artPhotos.length}}" class="section">
+      <view class="section-title">{{texts.artPhotos}}</view>
+      <scroll-view scroll-x class="photo-scroll">
+        <image wx:for="{{artPhotos}}" wx:key="*this" src="{{item}}" mode="aspectFill" bindtap="previewPhoto" data-url="{{item}}" data-group="art"></image>
+      </scroll-view>
+    </view>
+
+    <view wx:if="{{lifePhotos.length}}" class="section">
+      <view class="section-title">{{texts.lifePhotos}}</view>
+      <scroll-view scroll-x class="photo-scroll">
+        <image wx:for="{{lifePhotos}}" wx:key="*this" src="{{item}}" mode="aspectFill" bindtap="previewPhoto" data-url="{{item}}" data-group="life"></image>
+      </scroll-view>
+    </view>
+
+    <view wx:if="{{videos.length && videoIsPlayable}}" class="section">
+      <view class="section-title">{{texts.video}}</view>
+      <video
+        wx:for="{{videos}}"
+        wx:key="url"
+        wx:if="{{item.playable}}"
+        class="video-player"
+        src="{{item.url}}"
+        controls
+        object-fit="contain"
+      ></video>
+    </view>
+
+    <view wx:if="{{videos.length && !videoIsPlayable}}" class="section">
+      <view class="section-title">{{texts.videoLink}}</view>
+      <view wx:for="{{videos}}" wx:key="url" class="video-box">
+        <text>{{item.url}}</text>
+      </view>
+      <button class="ghost-button video-copy-button" bindtap="copyVideoLink">{{texts.copyVideoLink}}</button>
+    </view>
+
+    <view class="booking-bar">
+      <button
+        class="primary-button {{artist.action_class}}"
+        disabled="{{!artist.can_book}}"
+        bindtap="goBooking"
+      >{{artist.action_label}}</button>
+    </view>
+  </view>
+
+  <view wx:else class="empty">{{texts.notFound}}</view>
+
+  <view class="bottom-space detail-bottom-space"></view>
+
+                <view class="bottom-nav">
+    <view class="nav-item" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item active" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+      
+    </view>
+    <view class="nav-item" data-target="messages" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-message.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>
+
+
+
+
+
+

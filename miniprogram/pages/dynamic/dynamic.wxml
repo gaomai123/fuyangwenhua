@@ -1,0 +1,81 @@
+﻿<view class="page dynamic-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <view class="back-fab" hover-class="back-fab-hover" catchtap="goBack">‹</view>
+
+  <view class="dynamic-head">
+    <view class="eyebrow">FUYANGWENHUA NEWS</view>
+    <view class="page-title">动态公告</view>
+    <view class="page-desc">平台公告、招募通知、培训动态、音乐节资讯和合作信息</view>
+  </view>
+
+  <view class="promotion-entry" bindtap="goPromotion">
+    <view class="promotion-mark">晋</view>
+    <view class="promotion-copy">
+      <view class="promotion-kicker">CAREER DEVELOPMENT</view>
+      <view class="promotion-title">晋升通道申请</view>
+      <view class="promotion-desc">舞台总监晋升通道现已开放，提交个人能力与目标职位申请</view>
+    </view>
+    <view class="promotion-arrow">›</view>
+  </view>
+
+  <scroll-view scroll-x class="category-scroll">
+    <view
+      wx:for="{{categories}}"
+      wx:key="value"
+      class="category-pill {{activeCategory === item.value ? 'active' : ''}}"
+      data-value="{{item.value}}"
+      bindtap="onCategoryTap"
+    >
+      {{item.label}}
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+  <view wx:elif="{{posts.length === 0}}" class="empty">暂无动态</view>
+
+  <view wx:else class="news-list">
+    <view wx:for="{{posts}}" wx:key="id" class="news-card" data-id="{{item.id}}" bindtap="goDetail">
+      <image wx:if="{{item.cover_url}}" class="news-cover" src="{{item.cover_url}}" mode="aspectFill"></image>
+      <view wx:else class="news-cover news-cover-empty">
+        <view class="cover-mark">FY</view>
+        <view>福洋文化动态</view>
+      </view>
+      <view class="news-body">
+        <view class="news-meta">
+          <text class="category">{{item.category}}</text>
+          <text wx:if="{{item.top_label}}" class="top-label">{{item.top_label}}</text>
+          <text class="date">{{item.display_date}}</text>
+        </view>
+        <view class="news-title">{{item.title}}</view>
+        <view class="news-summary">{{item.summary}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-space"></view>
+  <view class="bottom-nav">
+    <view class="nav-item" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item active" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic-active.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+    </view>
+    <view class="nav-item" data-target="messages" bindtap="goNav">
+      <view wx:if="{{unreadNotificationCount}}" class="nav-badge">{{unreadNotificationText}}</view>
+      <image class="nav-img" src="/images/nav-message.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>
+
+
+

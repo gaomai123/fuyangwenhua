@@ -1,0 +1,9 @@
+@import "../artists/artists.wxss";
+
+.category-page .page-head {
+  justify-content: flex-start;
+}
+
+.category-page .empty {
+  margin-top: 24rpx;
+}

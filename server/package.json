@@ -1,0 +1,20 @@
+{
+  "name": "artist-miniapp-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local Express API for the artist miniapp.",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.3",
+    "multer": "^2.1.1",
+    "sqlite3": "^6.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

@@ -1,0 +1,168 @@
+﻿<view class="page submit-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <navigator class="back-fab" open-type="navigateBack" delta="1" hover-class="back-fab-hover">‹</navigator>
+
+  <form bindsubmit="submitProfile" class="form">
+    <view class="section">
+      <view class="section-title">基础资料</view>
+
+      <view class="form-field">
+        <view class="form-label">艺名</view>
+        <input name="stage_name" placeholder="请输入艺名" placeholder-class="input-placeholder" />
+      </view>
+
+      <view class="form-field">
+        <view class="form-label">真实姓名</view>
+        <input name="real_name" placeholder="仅管理员可见" placeholder-class="input-placeholder" />
+      </view>
+
+      <view class="form-field">
+        <view class="form-label">手机号</view>
+        <input name="phone" type="number" placeholder="仅管理员可见" placeholder-class="input-placeholder" />
+      </view>
+
+      <view class="form-field">
+        <view class="form-label">所在城市</view>
+        <input name="city" placeholder="例如：福州" placeholder-class="input-placeholder" />
+      </view>
+
+      <view class="form-field">
+        <view class="form-label">接受调度城市</view>
+        <input name="dispatch_cities" placeholder="例如：全国 / 上海、杭州、南京" placeholder-class="input-placeholder" />
+      </view>
+
+      <view class="form-field">
+        <view class="form-label">艺人类型</view>
+        <picker range="{{categoryOptions}}" data-field="category" bindchange="onPickerChange">
+          <view class="picker-value {{form.category ? '' : 'placeholder'}}">{{form.category ? form.category : '请选择艺人类型'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-field">
+        <view class="form-label">风格标签</view>
+        <input name="tags" placeholder="例如：民谣、流行、DJ" placeholder-class="input-placeholder" />
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">图片资料</view>
+
+      <view class="upload-block">
+        <view class="upload-label">头像</view>
+        <view class="avatar-uploader" bindtap="chooseAvatar">
+          <image wx:if="{{avatarTemp}}" class="avatar-preview" src="{{avatarTemp}}" mode="aspectFill"></image>
+          <view wx:else class="upload-placeholder">
+            <view class="upload-plus">+</view>
+            <view>上传头像</view>
+          </view>
+          <view wx:if="{{avatarTemp}}" class="upload-change">更换</view>
+        </view>
+      </view>
+
+      <view class="upload-block">
+        <view class="upload-label">生活照 / 作品照</view>
+        <view class="upload-hint">生活照、舞台照、作品照均可，最多 9 张</view>
+        <view class="photo-grid">
+          <image wx:for="{{photoTemps}}" wx:key="*this" src="{{item}}" mode="aspectFill"></image>
+          <view wx:if="{{photoTemps.length < 9}}" class="photo-add" bindtap="choosePhotos">
+            <view class="upload-plus">+</view>
+            <view>添加照片</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">补充资料</view>
+
+      <view class="form-field">
+        <view class="form-label">身高</view>
+        <input name="height" type="number" placeholder="例如：175" placeholder-class="input-placeholder" />
+      </view>
+
+      <view class="form-field">
+        <view class="form-label">年龄</view>
+        <input name="age" type="number" placeholder="例如：25" placeholder-class="input-placeholder" />
+      </view>
+
+      <view class="form-field">
+        <view class="form-label">性别</view>
+        <picker range="{{genderOptions}}" data-field="gender" bindchange="onPickerChange">
+          <view class="picker-value {{form.gender ? '' : 'placeholder'}}">{{form.gender ? form.gender : '请选择性别'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-field">
+        <view class="form-label">唱功类型</view>
+        <picker range="{{singingTypeOptions}}" data-field="singing_type" bindchange="onPickerChange">
+          <view class="picker-value {{form.singing_type ? '' : 'placeholder'}}">{{form.singing_type ? form.singing_type : '请选择唱功类型'}}</view>
+        </picker>
+      </view>
+
+      <view class="form-field">
+        <view class="form-label">参考薪资</view>
+        <picker range="{{salaryOptions}}" data-field="price" bindchange="onPickerChange">
+          <view class="picker-value {{form.price ? '' : 'placeholder'}}">{{form.price ? form.price : '请选择薪资范围'}}</view>
+        </picker>
+      </view>
+
+      <view class="upload-block">
+        <view class="upload-label">视频作品</view>
+        <view wx:for="{{videoTemps}}" wx:key="filePath" class="video-item">
+          <view class="video-icon">✓</view>
+          <view class="video-info">
+            <view class="video-title">{{item.name}}</view>
+            <view class="video-desc">已选择，可继续添加或移除</view>
+          </view>
+          <view class="video-remove" data-index="{{index}}" catchtap="removeVideo">移除</view>
+        </view>
+        <view wx:if="{{videoTemps.length < 5}}" class="video-uploader" bindtap="chooseVideo">
+          <view class="video-icon">+</view>
+          <view class="video-info">
+            <view class="video-title">添加视频作品</view>
+            <view class="video-desc">最多 5 条，每条最长 1 分半，可选填</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="form-field">
+        <view class="form-label">视频链接</view>
+        <input class="url-input" name="video_url" placeholder="抖音 / B站 / 小红书等作品链接" placeholder-class="input-placeholder" />
+      </view>
+
+      <view class="form-field">
+        <view class="form-label">简介</view>
+        <textarea name="bio" placeholder="介绍演出经验、风格、代表作品" placeholder-class="input-placeholder"></textarea>
+      </view>
+    </view>
+
+    <button class="primary-button submit-button" form-type="submit" loading="{{submitting}}" disabled="{{submitting}}">
+      {{submitting ? '提交中...' : '提交简历'}}
+    </button>
+  </form>
+
+  <view class="bottom-space"></view>
+  <view class="bottom-nav">
+    <view class="nav-item" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+    </view>
+    <view class="nav-item" data-target="messages" bindtap="goNav">
+      <view wx:if="{{unreadNotificationCount}}" class="nav-badge">{{unreadNotificationText}}</view>
+      <image class="nav-img" src="/images/nav-message.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>
+

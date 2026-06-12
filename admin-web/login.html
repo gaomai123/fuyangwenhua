@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员登录</title>
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+  <body class="login-page">
+    <main class="login-panel">
+      <h1>艺人库后台</h1>
+      <form id="loginForm" class="form">
+        <label>
+          账号
+          <input id="username" type="text" value="admin" autocomplete="username" required>
+        </label>
+        <label>
+          密码
+          <input id="password" type="password" value="admin123" autocomplete="current-password" required>
+        </label>
+        <button type="submit">登录</button>
+        <p id="message" class="message"></p>
+      </form>
+    </main>
+    <script src="./js/api.js"></script>
+    <script src="./js/login.js"></script>
+  </body>
+</html>

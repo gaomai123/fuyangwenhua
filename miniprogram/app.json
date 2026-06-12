@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/dynamic/dynamic",
+    "pages/news-detail/news-detail",
+    "pages/brand/brand",
+    "pages/messages/messages",
+    "pages/wholesale/wholesale",
+    "pages/product-detail/product-detail",
+    "pages/artists/artists",
+    "pages/artist-category/artist-category",
+    "pages/submit/submit",
+    "pages/detail/detail",
+    "pages/booking/booking",
+    "pages/festival/festival",
+    "pages/festival-case/festival-case",
+    "pages/customer/customer",
+    "pages/resume-status/resume-status",
+    "pages/booking-status/booking-status",
+    "pages/festival-status/festival-status",
+    "pages/promotion/promotion",
+    "pages/promotion-status/promotion-status",
+    "pages/my-artist/my-artist",
+    "pages/status-request/status-request",
+    "pages/success/success"
+  ],
+  "window": {
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#0a111b",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0a111b",
+    "backgroundColorTop": "#0a111b",
+    "backgroundColorBottom": "#07101c",
+    "navigationStyle": "custom"
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

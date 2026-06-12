@@ -1,0 +1,51 @@
+<view class="page promotion-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <navigator class="back-fab" open-type="navigateBack" delta="1" hover-class="back-fab-hover">‹</navigator>
+
+  <view class="promotion-head">
+    <view class="eyebrow">CAREER DEVELOPMENT</view>
+    <view class="title">晋升通道申请</view>
+    <view class="subtitle">面向门店舞台管理岗位，提交后由管理人员统一审核</view>
+  </view>
+
+  <view class="position-track">
+    <view wx:for="{{targetPositions}}" wx:key="*this" class="position-step">
+      <view class="step-number">{{index + 1}}</view>
+      <view>{{item}}</view>
+    </view>
+  </view>
+
+  <view class="promotion-form">
+    <view class="section">
+      <view class="section-title">基本信息</view>
+      <label>名字<input value="{{form.name}}" data-field="name" bindinput="onInput" maxlength="20" placeholder="请输入姓名" /></label>
+      <label>年龄<input type="number" value="{{form.age}}" data-field="age" bindinput="onInput" maxlength="2" placeholder="请输入年龄" /></label>
+      <label>性别
+        <picker range="{{genderOptions}}" value="{{genderIndex}}" bindchange="onGenderChange">
+          <view class="picker-box">{{genderIndex >= 0 ? genderOptions[genderIndex] : '请选择性别'}}</view>
+        </picker>
+      </label>
+      <label>联系方式<input type="number" value="{{form.phone}}" data-field="phone" bindinput="onInput" maxlength="11" placeholder="请输入手机号" /></label>
+      <label>所在门店<input value="{{form.store}}" data-field="store" bindinput="onInput" maxlength="50" placeholder="请输入门店名称" /></label>
+      <label>现任职位<input value="{{form.currentPosition}}" data-field="currentPosition" bindinput="onInput" maxlength="50" placeholder="请输入当前职位" /></label>
+    </view>
+
+    <view class="section">
+      <view class="section-title">晋升目标</view>
+      <label>目标晋升职位
+        <picker range="{{targetPositions}}" value="{{targetIndex}}" bindchange="onTargetChange">
+          <view class="picker-box">{{targetIndex >= 0 ? targetPositions[targetIndex] : '请选择目标职位'}}</view>
+        </picker>
+      </label>
+      <label>能力自诉
+        <textarea value="{{form.abilityStatement}}" data-field="abilityStatement" bindinput="onInput" maxlength="1000" placeholder="请说明工作经历、管理能力、业务成绩及晋升优势"></textarea>
+        <view class="word-count">{{form.abilityStatement.length}} / 1000</view>
+      </label>
+    </view>
+
+    <button class="primary-button submit-button" bindtap="submitApplication" loading="{{submitting}}" disabled="{{submitting}}">
+      {{submitting ? '提交中...' : '提交晋升申请'}}
+    </button>
+  </view>
+  <view class="bottom-space"></view>
+</view>

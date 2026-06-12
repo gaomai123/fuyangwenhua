@@ -1,0 +1,82 @@
+<view class="page product-detail-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <navigator class="back-fab" open-type="navigateBack" delta="1" hover-class="back-fab-hover">‹</navigator>
+
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+  <view wx:elif="{{!product}}" class="empty">没有找到产品</view>
+
+  <view wx:else class="detail-shell">
+    <swiper class="product-swiper" indicator-dots circular indicator-color="rgba(255,255,255,0.45)" indicator-active-color="#ffd58b">
+      <swiper-item wx:for="{{images}}" wx:key="*this">
+        <image
+          class="detail-image"
+          src="{{item}}"
+          mode="aspectFill"
+          data-index="{{index}}"
+          data-url="{{item}}"
+          binderror="onImageError"
+          bindtap="previewImage"
+        ></image>
+      </swiper-item>
+    </swiper>
+
+    <view class="detail-panel">
+      <view class="detail-category">{{product.category}}</view>
+      <view class="detail-name">{{product.name}}</view>
+      <view class="detail-price">{{product.price_text}}</view>
+      <view class="detail-summary">{{product.summary}}</view>
+    </view>
+
+    <view class="detail-section">
+      <view class="section-title">规格参数</view>
+      <view class="section-text">{{product.specs}}</view>
+    </view>
+
+    <view class="detail-section">
+      <view class="section-title">产品介绍</view>
+      <view class="section-text">{{product.detail}}</view>
+    </view>
+
+    <view class="contact-section">
+      <view class="section-title">联系购买</view>
+      <view class="contact-grid">
+        <view class="contact-box">
+          <view class="contact-label">联系电话</view>
+          <view class="contact-value">{{product.contact_phone || '后台维护'}}</view>
+        </view>
+        <view class="contact-box">
+          <view class="contact-label">微信</view>
+          <view class="contact-value">{{product.contact_wechat || '后台维护'}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{product}}" class="bottom-actions">
+    <button class="action-button phone" bindtap="callPhone">电话咨询</button>
+    <button class="action-button wechat" bindtap="copyWechat">复制微信</button>
+  </view>
+
+  <view class="bottom-space detail-bottom-space"></view>
+  <view class="bottom-nav">
+    <view class="nav-item" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+    </view>
+    <view class="nav-item" data-target="messages" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-message.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,80 @@
+﻿<view class="page resume-status-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <navigator class="back-fab" open-type="navigateBack" delta="1" hover-class="back-fab-hover">‹</navigator>
+
+  <view class="page-head">
+    <view class="eyebrow">SUBMISSION STATUS</view>
+    <view class="page-title">我的简历状态</view>
+    <view class="page-desc">查看全部投递记录和平台审核进度</view>
+  </view>
+
+  <view class="status-guide">
+    <view wx:for="{{statusSteps}}" wx:key="code" class="guide-step">
+      <view class="guide-dot"></view>
+      <view>{{item.label}}</view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+  <view wx:elif="{{submissions.length === 0}}" class="empty">
+    暂无简历投递记录
+    <button class="primary-button submit-button" bindtap="goSubmit">去投递简历</button>
+  </view>
+
+  <view wx:else class="submission-list">
+    <view wx:for="{{submissions}}" wx:key="id" class="submission-card">
+      <view class="card-head">
+        <view>
+          <view class="stage-name">{{item.stage_name}}</view>
+          <view class="meta">{{item.display_type}} / {{item.city || '-'}}</view>
+        </view>
+        <view class="status-badge status-{{item.status}}">{{item.status_label}}</view>
+      </view>
+
+      <view class="info-grid">
+        <view>
+          <text class="label">提交时间</text>
+          <text>{{item.display_date || '-'}}</text>
+        </view>
+        <view>
+          <text class="label">更新时间</text>
+          <text>{{item.display_updated || '-'}}</text>
+        </view>
+        <view>
+          <text class="label">当前状态</text>
+          <text>{{item.status_label}}</text>
+        </view>
+      </view>
+
+      <view wx:if="{{item.is_converted}}" class="success-box">已成为平台艺人</view>
+      <view wx:if="{{item.reject_reason}}" class="reject-box">原因：{{item.reject_reason}}</view>
+    </view>
+  </view>
+
+  <view class="bottom-space"></view>
+  <view class="bottom-nav">
+    <view class="nav-item" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+    </view>
+    <view class="nav-item" data-target="messages" bindtap="goNav">
+      <view wx:if="{{unreadNotificationCount}}" class="nav-badge">{{unreadNotificationText}}</view>
+      <image class="nav-img" src="/images/nav-message.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item active" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user-active.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>
+
+
+

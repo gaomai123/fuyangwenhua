@@ -1,0 +1,40 @@
+﻿<view class="page status-request-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <navigator class="back-fab" open-type="navigateBack" delta="1" hover-class="back-fab-hover">‹</navigator>
+
+  <view class="page-head">
+    <view class="eyebrow">STATUS REQUEST</view>
+    <view class="page-title">下店状态管理</view>
+    <view class="page-desc">状态会实时同步到艺人库和预约按钮。</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+  <view wx:elif="{{!artist}}" class="empty">暂未绑定艺人档案</view>
+
+  <view wx:else class="form-card">
+    <view class="artist-line">
+      <view>
+        <view class="artist-name">{{artist.stage_name}}</view>
+        <view class="artist-meta">{{artist.city || '-'}} / 当前：{{workStatusText[artist.work_status] || artist.work_status || '-'}}</view>
+      </view>
+    </view>
+
+    <view class="field-block">
+      <view class="field-title">申请变更为</view>
+      <view class="status-list">
+        <view
+          wx:for="{{statusOptions}}"
+          wx:key="value"
+          class="status-option {{requestedStatus === item.value ? 'active' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="selectStatus"
+        >
+          <view class="status-title">{{item.title}}</view>
+          <view class="status-desc">{{item.desc}}</view>
+        </view>
+      </view>
+    </view>
+
+    <button class="submit-btn" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submitRequest">更新状态</button>
+  </view>
+</view>

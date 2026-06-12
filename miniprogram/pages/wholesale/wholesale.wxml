@@ -1,0 +1,72 @@
+<view class="page wholesale-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <view class="back-fab" hover-class="back-fab-hover" bindtap="goBack">‹</view>
+
+  <view class="wholesale-hero">
+    <view class="hero-kicker">FUYANG WHOLESALE</view>
+    <view class="hero-title">乐器设备批发</view>
+    <view class="hero-desc">乐器、音响、灯光及演出设备展示。批发价联系我们，支持微信和电话咨询。</view>
+  </view>
+
+  <scroll-view scroll-x class="category-scroll" enhanced show-scrollbar="{{false}}">
+    <view
+      wx:for="{{categories}}"
+      wx:key="value"
+      class="category-chip {{activeCategory === item.value ? 'active' : ''}}"
+      data-value="{{item.value}}"
+      bindtap="onCategoryTap"
+    >
+      {{item.label}}
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+  <view wx:elif="{{filteredProducts.length === 0}}" class="empty product-empty">
+    <view>{{activeCategory ? '当前分类暂无产品' : '暂无产品'}}</view>
+    <button wx:if="{{activeCategory}}" class="ghost-button empty-reset" bindtap="resetCategory">查看全部产品</button>
+  </view>
+
+  <view wx:else class="product-list">
+    <view wx:for="{{filteredProducts}}" wx:key="id" class="product-card" data-id="{{item.id}}" bindtap="openProduct">
+      <image
+        class="product-cover"
+        src="{{item.cover_url}}"
+        mode="aspectFill"
+        data-id="{{item.id}}"
+        binderror="onCoverError"
+      ></image>
+      <view class="product-body">
+        <view class="product-category">{{item.category}}</view>
+        <view class="product-name">{{item.name}}</view>
+        <view class="product-summary">{{item.summary}}</view>
+        <view class="product-bottom">
+          <view class="product-price">{{item.price_text}}</view>
+          <view class="product-arrow">></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-space"></view>
+  <view class="bottom-nav">
+    <view class="nav-item" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+    </view>
+    <view class="nav-item" data-target="messages" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-message.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>

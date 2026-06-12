@@ -1,0 +1,42 @@
+﻿<view class="page brand-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <navigator class="back-fab" open-type="navigateBack" delta="1" hover-class="back-fab-hover">‹</navigator>
+
+  <view class="brand-panel">
+    <image class="brand-logo-large" src="/images/fuyangwenhua-mark-header.png" mode="aspectFit"></image>
+    <view class="brand-title">福洋文化</view>
+    <view class="brand-desc">福洋文化音乐人平台，连接音乐人与行业资源，提供艺人经纪、音乐培训、演出策划、音乐节运营等服务。</view>
+    <view class="brand-actions">
+      <button class="primary-button" bindtap="goSubmit">投递简历</button>
+      <button class="ghost-button" bindtap="goFestival">音乐节合作</button>
+    </view>
+  </view>
+
+  <view class="bottom-space"></view>
+  <view class="bottom-nav">
+    <view class="nav-item" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+    </view>
+    <view class="nav-item" data-target="messages" bindtap="goNav">
+      <view wx:if="{{unreadNotificationCount}}" class="nav-badge">{{unreadNotificationText}}</view>
+      <image class="nav-img" src="/images/nav-message.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>
+
+
+
+

@@ -1,0 +1,53 @@
+﻿<view class="page booking-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <navigator class="back-fab" open-type="navigateBack" delta="1" hover-class="back-fab-hover">‹</navigator>
+
+  <view class="booking-head">
+    <view class="eyebrow">Booking Request</view>
+    <view class="title">预约 {{artistName}}</view>
+    <view class="subtitle">提交后工作人员会尽快联系确认档期与合作细节</view>
+  </view>
+
+  <form class="booking-form" bindsubmit="submitBooking">
+    <view class="section">
+      <label>联系人<input name="contact_name" placeholder="请填写联系人姓名" /></label>
+      <label>手机号<input name="phone" type="number" placeholder="请填写手机号" /></label>
+      <label>演出城市<input name="city" placeholder="例如：福州" /></label>
+      <label>预计时间<input name="event_time" placeholder="例如：2026年6月 / 周末晚间" /></label>
+      <label>预算范围<input name="budget" placeholder="例如：3000-5000 / 面议" /></label>
+      <label class="wide">需求说明<textarea name="requirement" placeholder="活动类型、人数、场地、演出时长等" rows="5"></textarea></label>
+    </view>
+
+    <button class="primary-button submit-button" form-type="submit" loading="{{submitting}}" disabled="{{submitting}}">
+      {{submitting ? '提交中...' : '提交预约意向'}}
+    </button>
+  </form>
+
+  <view class="bottom-space"></view>
+
+  <view class="bottom-nav">
+    <view class="nav-item" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+    </view>
+    <view class="nav-item" data-target="messages" bindtap="goNav">
+      <view wx:if="{{unreadNotificationCount}}" class="nav-badge">{{unreadNotificationText}}</view>
+      <image class="nav-img" src="/images/nav-message.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>
+
+
+

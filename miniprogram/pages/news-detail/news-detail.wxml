@@ -1,0 +1,73 @@
+﻿<view class="page news-detail-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <view class="back-fab" hover-class="back-fab-hover" bindtap="goBack">‹</view>
+
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+
+  <view wx:elif="{{post}}" class="detail-content">
+    <view class="article-card">
+      <view class="detail-meta">
+        <text class="category-pill">{{post.category}}</text>
+        <text>{{post.display_date}}</text>
+      </view>
+      <view class="detail-title">{{post.title}}</view>
+      <image wx:if="{{post.cover_url}}" class="cover" src="{{post.cover_url}}" mode="aspectFill"></image>
+      <view wx:if="{{post.summary}}" class="summary">{{post.summary}}</view>
+      <view class="content">
+        <view wx:for="{{contentParagraphs}}" wx:key="*this" class="paragraph">{{item}}</view>
+      </view>
+    </view>
+
+    <view wx:if="{{imageUrls.length}}" class="media-section">
+      <view class="section-title">相关图片</view>
+      <image
+        wx:for="{{imageUrls}}"
+        wx:key="*this"
+        class="detail-image"
+        src="{{item}}"
+        mode="aspectFill"
+        data-url="{{item}}"
+        bindtap="previewImage"
+      ></image>
+    </view>
+
+    <view wx:if="{{post.video_url && videoIsPlayable}}" class="media-section">
+      <view class="section-title">相关视频</view>
+      <video class="video-player" src="{{post.video_url}}" controls object-fit="contain"></video>
+    </view>
+
+    <view wx:if="{{post.video_url && !videoIsPlayable}}" class="media-section">
+      <view class="section-title">视频链接</view>
+      <view class="video-link">{{post.video_url}}</view>
+      <button class="ghost-button copy-button" bindtap="copyVideoLink">复制链接</button>
+    </view>
+  </view>
+
+  <view wx:else class="empty">动态不存在或已隐藏</view>
+
+  <view class="bottom-space"></view>
+  <view class="bottom-nav">
+    <view class="nav-item" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item active" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic-active.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+    </view>
+    <view class="nav-item" data-target="messages" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-message.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>
+
+
+

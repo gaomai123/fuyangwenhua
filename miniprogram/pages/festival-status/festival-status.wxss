@@ -1,0 +1,6 @@
+@import "../resume-status/resume-status.wxss";
+
+.status-closed {
+  background: rgba(180, 190, 205, 0.16);
+  color: #d3d9e4;
+}

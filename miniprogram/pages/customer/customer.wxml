@@ -1,0 +1,115 @@
+﻿<view class="page customer-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <view class="back-fab" hover-class="back-fab-hover" bindtap="goBack">‹</view>
+
+  <view class="account-card">
+    <image wx:if="{{userProfile.avatar_url}}" class="avatar avatar-image" src="{{userProfile.avatar_url}}" mode="aspectFill"></image>
+    <view wx:else class="avatar placeholder">{{userInitial}}</view>
+    <view class="profile-info">
+      <view class="nickname">{{userProfile.nickname || '微信用户'}}</view>
+      <view class="account-state">{{profileLoading ? '正在登录...' : '微信身份已登录'}}</view>
+    </view>
+    <view class="profile-action" bindtap="toggleProfileEditor">{{userProfile.profile_completed ? '编辑' : '完善资料'}}</view>
+  </view>
+
+  <view wx:if="{{showProfileEditor}}" class="profile-editor">
+    <view class="editor-title">完善微信资料</view>
+    <view class="editor-desc">头像和昵称仅用于小程序内个人展示</view>
+    <button class="avatar-picker" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+      <image wx:if="{{profileForm.avatar_url}}" src="{{profileForm.avatar_url}}" mode="aspectFill"></image>
+      <view wx:else>选择头像</view>
+    </button>
+    <input
+      class="nickname-input"
+      type="nickname"
+      value="{{profileForm.nickname}}"
+      placeholder="请输入微信昵称"
+      bindinput="onNicknameInput"
+    />
+    <view class="editor-actions">
+      <button class="ghost-button editor-button" bindtap="toggleProfileEditor">取消</button>
+      <button class="primary-button editor-button" loading="{{profileSaving}}" disabled="{{profileSaving}}" bindtap="saveProfile">保存资料</button>
+    </view>
+  </view>
+
+  <view class="dashboard-section">
+    <view class="section-head compact-head">
+      <view>
+        <view class="section-title">艺人服务</view>
+        <view class="section-subtitle">资料投递、档案管理与艺人查询</view>
+      </view>
+    </view>
+
+    <view class="service-list">
+      <view class="quick-item" bindtap="goSubmit">
+        <view class="quick-icon">投</view>
+        <view class="quick-copy">
+          <view class="quick-title">投递简历</view>
+          <view class="quick-desc">提交艺人资料</view>
+        </view>
+        <view class="progress-arrow">›</view>
+      </view>
+      <view class="quick-item" bindtap="goMyArtist">
+        <view class="quick-icon">档</view>
+        <view class="quick-copy">
+          <view class="quick-title">我的艺人档案</view>
+          <view class="quick-desc">查看资料并管理工作状态</view>
+        </view>
+        <view class="progress-arrow">›</view>
+      </view>
+      <view class="quick-item" bindtap="goArtistLibrary">
+        <view class="quick-icon">艺</view>
+        <view class="quick-copy">
+          <view class="quick-title">浏览艺人库</view>
+          <view class="quick-desc">查看平台签约与推荐艺人</view>
+        </view>
+        <view class="progress-arrow">›</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="dashboard-section career-section">
+    <view class="section-head compact-head">
+      <view>
+        <view class="section-title">职业发展</view>
+        <view class="section-subtitle">内部成长与职位晋升</view>
+      </view>
+    </view>
+
+    <view class="career-entry" bindtap="goPromotion">
+      <view class="career-icon">晋</view>
+      <view class="quick-copy">
+        <view class="quick-title">舞台总监晋升通道</view>
+        <view class="quick-desc">提交个人能力与目标职位申请</view>
+      </view>
+      <view class="progress-arrow">›</view>
+    </view>
+  </view>
+
+  <view class="bottom-space"></view>
+  <view class="bottom-nav">
+    <view class="nav-item" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+    </view>
+    <view class="nav-item" data-target="messages" bindtap="goNav">
+      <view wx:if="{{unreadNotificationCount}}" class="nav-badge">{{unreadNotificationText}}</view>
+      <image class="nav-img" src="/images/nav-message.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item active" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user-active.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>
+
+
+

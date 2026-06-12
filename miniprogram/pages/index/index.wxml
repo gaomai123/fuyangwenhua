@@ -1,0 +1,143 @@
+﻿<view class="page home-page">
+  
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <view class="brand-head">
+    <image class="brand-logo" src="/images/fuyangwenhua-mark-header.png" mode="aspectFit"></image>
+    <view class="brand-copy">
+      <view class="brand-name">{{texts.brandName}}</view>
+      <view class="brand-subtitle">{{texts.brandSubtitle}}</view>
+    </view>
+  </view>
+
+  <swiper
+    class="hero-swiper"
+    autoplay="{{true}}"
+    circular="{{true}}"
+    interval="4200"
+    duration="420"
+    bindchange="onBannerChange"
+  >
+    <swiper-item wx:for="{{banners}}" wx:key="titleLine1">
+      <view class="hero-card {{item.tone}}">
+        <image class="hero-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="hero-mask"></view>
+        <view class="hero-content">
+          <view class="hero-title">{{item.titleLine1}}<br />{{item.titleLine2}}</view>
+          <view class="hero-desc">{{item.desc}}</view>
+          <view class="hero-mark">{{item.mark}}</view>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <view class="dot-row">
+    <view wx:for="{{banners}}" wx:key="titleLine1" class="dot {{bannerIndex == index ? 'active' : ''}}"></view>
+  </view>
+
+  <view class="entry-grid">
+    <view
+      wx:for="{{entries}}"
+      wx:key="title"
+      class="entry-card {{item.tone}}"
+      data-type="{{item.type}}"
+      bindtap="goEntry"
+    >
+      <image class="entry-bg" src="{{item.image}}" mode="aspectFill"></image>
+      <view class="entry-shade"></view>
+      <view class="entry-title">{{item.title}}</view>
+      <view class="entry-desc">{{item.desc}}</view>
+      <view class="entry-arrow">></view>
+    </view>
+  </view>
+
+  <view class="section about-section">
+    <view class="section-title">{{texts.aboutTitle}}</view>
+    <view class="sound-line"></view>
+    <view class="about-text">{{texts.aboutText1}}</view>
+    <view class="about-text">{{texts.aboutText2}}</view>
+  </view>
+
+  <view class="section">
+    <view class="section-head">
+      <view class="section-title">{{texts.recommendedTitle}}</view>
+      <view class="section-more" bindtap="goArtists">{{texts.allArtists}} ></view>
+    </view>
+    <view wx:if="{{loadingArtists}}" class="empty compact">{{texts.loading}}</view>
+    <view wx:elif="{{recommendedArtists.length === 0}}" class="empty compact">{{texts.noRecommended}}</view>
+    <scroll-view wx:else scroll-x enhanced show-scrollbar="{{false}}" class="recommend-scroll">
+      <view class="recommend-track">
+        <view wx:for="{{recommendedArtists}}" wx:key="id" class="recommend-card" data-id="{{item.id}}" bindtap="goDetail">
+          <image
+            class="recommend-cover"
+            src="{{item.cover_url}}"
+            mode="aspectFill"
+            data-index="{{index}}"
+            binderror="onRecommendCoverError"
+          ></image>
+          <view class="recommend-mask"></view>
+          <view class="recommend-status {{item.can_book ? 'available' : 'busy'}}">
+            {{item.can_book ? '可预约' : '已下店'}}
+          </view>
+          <view class="recommend-info">
+            <view class="recommend-name">{{item.stage_name}}</view>
+            <view class="recommend-meta">{{item.city || '全国'}} · {{item.category || item.tags || '音乐人'}}</view>
+            <view class="recommend-salary">{{texts.salaryLabel}}{{item.salary_display}}</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">{{texts.noticeTitle}}</view>
+    <view class="notice-list">
+      <view
+        wx:for="{{notices}}"
+        wx:key="title"
+        class="notice-item {{item.type ? 'notice-link' : ''}}"
+        data-type="{{item.type}}"
+        bindtap="onNoticeTap"
+      >
+        <view class="notice-dot"></view>
+        <view class="notice-content">
+          <view class="notice-title">{{item.title}}</view>
+          <view wx:if="{{item.desc}}" class="notice-desc">{{item.desc}}</view>
+        </view>
+        <view wx:if="{{item.type}}" class="notice-action">查看 ›</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-space"></view>
+
+                <view class="bottom-nav">
+    <view class="nav-item active" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home-active.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+      
+    </view>
+    <view class="nav-item" data-target="messages" bindtap="goNav">
+      <view wx:if="{{unreadNotificationCount}}" class="nav-badge">{{unreadNotificationText}}</view>
+      <image class="nav-img" src="/images/nav-message.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>
+
+
+
+
+
+
+

@@ -1,0 +1,111 @@
+﻿<view class="page category-page">
+  
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <navigator class="back-fab" open-type="navigateBack" delta="1" hover-class="back-fab-hover">‹</navigator>
+<view class="cyber-bg">
+    <view class="city-line city-line-a"></view>
+    <view class="city-line city-line-b"></view>
+    <view class="scan scan-a"></view>
+  </view>
+
+  <view class="page-head">
+    <image class="brand-logo" src="/images/fuyangwenhua-logo-header.png" mode="aspectFit"></image>
+    <view>
+      <view class="eyebrow">{{texts.eyebrow}}</view>
+      <view class="title">{{category}}{{texts.titleSuffix}}</view>
+      <view class="subtitle">{{texts.subtitle}}</view>
+    </view>
+  </view>
+
+  <view class="panel-title-row">
+    <view class="panel-title-line"></view>
+    <view class="panel-title-text">{{category}} DATABASE</view>
+  </view>
+
+  <view class="status-tabs">
+    <view
+      wx:for="{{statusTabs}}"
+      wx:key="value"
+      class="status-tab {{filters.status === item.value ? 'active' : ''}}"
+      data-value="{{item.value}}"
+      bindtap="onStatusTap"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <view class="filter-panel glass-panel">
+    <picker range="{{categoryOptions}}" range-key="label" value="{{filterIndexes.category}}" data-field="category" data-options="categoryOptions" bindchange="onPickerFilterChange">
+      <view class="picker-value {{filters.category ? '' : 'placeholder'}}">{{filters.category || placeholders.category}}</view>
+    </picker>
+    <picker range="{{cityOptions}}" range-key="label" value="{{filterIndexes.city}}" data-field="city" data-options="cityOptions" bindchange="onPickerFilterChange">
+      <view class="picker-value {{filters.city ? '' : 'placeholder'}}">{{filters.city || placeholders.city}}</view>
+    </picker>
+    <picker range="{{genderOptions}}" range-key="label" value="{{filterIndexes.gender}}" data-field="gender" data-options="genderOptions" bindchange="onPickerFilterChange">
+      <view class="picker-value {{filters.gender ? '' : 'placeholder'}}">{{filters.gender || placeholders.gender}}</view>
+    </picker>
+    <picker range="{{dispatchCityOptions}}" range-key="label" value="{{filterIndexes.dispatch_city}}" data-field="dispatch_city" data-options="dispatchCityOptions" bindchange="onPickerFilterChange">
+      <view class="picker-value {{filters.dispatch_city ? '' : 'placeholder'}}">{{filters.dispatch_city || placeholders.dispatch_city}}</view>
+    </picker>
+    <button class="ghost-button reset-button" bindtap="resetFilters">{{texts.reset}}</button>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">{{texts.loading}}</view>
+  <view wx:elif="{{artists.length === 0}}" class="empty">{{texts.empty}}</view>
+
+  <view wx:else class="artist-list">
+    <view wx:for="{{artists}}" wx:key="id" class="artist-card" data-id="{{item.id}}" bindtap="goDetail">
+      <image wx:if="{{item.avatar_url}}" class="avatar" src="{{item.avatar_url}}" mode="aspectFill"></image>
+      <view wx:else class="avatar placeholder">{{texts.artistFallback}}</view>
+      <view class="artist-info">
+        <view class="artist-title">
+          <text class="name">{{item.stage_name}}</text>
+          <text class="status {{item.status_class}}">{{item.status_label}}</text>
+        </view>
+        <view class="meta">
+          <text>{{item.city || '-'}}</text>
+          <text>{{item.display_gender}}</text>
+          <text>{{item.display_category}}</text>
+        </view>
+        <view class="tag-row">
+          <text wx:if="{{item.singing_type}}">{{item.singing_type}}</text>
+          <text wx:for="{{item.tag_list}}" wx:key="*this">{{item}}</text>
+        </view>
+        <view class="dispatch">{{texts.dispatchLabel}}{{item.dispatch_display}}</view>
+        <view wx:if="{{item.salary_display}}" class="salary">{{texts.salaryLabel}}{{item.salary_display}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-space"></view>
+
+                <view class="bottom-nav">
+    <view class="nav-item" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item active" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+      
+    </view>
+    <view class="nav-item" data-target="messages" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-message.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>
+
+
+
+
+
+
+

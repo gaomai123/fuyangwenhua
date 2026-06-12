@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.cloudbase.net/cli/cloudbaserc.schema.json",
+  "envId": "cloud1-d6gpw3i9686e94bf4",
+  "functionRoot": "miniprogram/cloudfunctions",
+  "functions": [
+    {
+      "name": "webAdminFestivalCases"
+    },
+    {
+      "name": "getArtists"
+    },
+    {
+      "name": "getArtistDetail"
+    },
+    {
+      "name": "submitPromotionApplication"
+    },
+    {
+      "name": "getMyPromotionApplications"
+    },
+    {
+      "name": "userProfile"
+    }
+  ]
+}

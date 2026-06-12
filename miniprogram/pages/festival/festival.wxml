@@ -1,0 +1,162 @@
+﻿<view class="page festival-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <navigator class="back-fab" open-type="navigateBack" delta="1" hover-class="back-fab-hover">‹</navigator>
+
+  <view class="festival-shell">
+    <view class="brand-head">
+      <image class="brand-logo" src="/images/fuyangwenhua-logo-header.png" mode="aspectFit"></image>
+    </view>
+
+    <swiper class="hero-card" autoplay circular interval="3600" duration="520" indicator-dots indicator-color="rgba(255,255,255,0.58)" indicator-active-color="#d98917">
+      <swiper-item wx:for="{{banners}}" wx:key="mark">
+        <view class="hero-slide">
+          <image class="hero-image" src="{{item.image}}" mode="aspectFill"></image>
+          <view class="hero-overlay">
+            <view class="hero-title">{{item.title}}</view>
+            <view class="hero-subtitle">{{item.subtitle}}</view>
+            <view class="hero-mark">{{item.mark}}</view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+
+    <view class="intro-card">
+      <view class="section-heading">
+        <view class="heading-mark"></view>
+        <view>音乐节介绍</view>
+      </view>
+      <view class="intro-content">
+        <view class="intro-text">
+          福洋文化专注打造高品质音乐节 IP，整合艺人资源、舞台制作、视觉设计、票务营销与现场执行，为品牌提供全链路音乐营销解决方案，帮助品牌与乐迷建立更深连接。
+        </view>
+        <view class="intro-visual">
+          <view class="music-note">♪</view>
+          <view class="orbit orbit-a"></view>
+          <view class="orbit orbit-b"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-block">
+      <view class="section-heading">
+        <view class="heading-mark"></view>
+        <view>案例展示</view>
+      </view>
+      <scroll-view class="case-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+        <view wx:for="{{cases}}" wx:key="id" class="case-card" data-id="{{item.id}}" bindtap="openCase">
+          <view class="case-cover">
+            <image class="case-image" src="{{item.image}}" mode="aspectFill"></image>
+            <view class="case-play">▶</view>
+          </view>
+          <view class="case-tag">{{item.tag}}</view>
+          <view class="case-body">
+            <view class="case-title">{{item.title}}</view>
+            <view class="case-location">{{item.location}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="section-block">
+      <view class="section-heading">
+        <view class="heading-mark"></view>
+        <view>合作方式</view>
+      </view>
+      <view class="mode-grid">
+        <view wx:for="{{cooperationModes}}" wx:key="title" class="mode-card">
+          <view class="mode-icon">{{index + 1}}</view>
+          <view class="mode-title">{{item.title}}</view>
+          <view class="mode-desc">{{item.desc}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="contact-card">
+      <view class="section-heading">
+        <view class="heading-mark"></view>
+        <view>联系方式</view>
+      </view>
+      <view class="contact-row">
+        <view class="contact-item">
+          <view class="contact-label">合作电话</view>
+          <view class="contact-value">{{phone}}</view>
+          <button class="contact-btn" bindtap="callPhone">一键拨打</button>
+        </view>
+        <view class="contact-divider"></view>
+        <view class="contact-item">
+          <view class="contact-label">商务微信</view>
+          <view class="contact-value">{{wechat}}</view>
+          <button class="contact-btn" bindtap="copyWechat">复制微信</button>
+        </view>
+      </view>
+    </view>
+
+    <view class="lead-section">
+      <view class="section-heading">
+        <view class="heading-mark"></view>
+        <view>提交合作意向</view>
+      </view>
+      <view class="form-grid">
+        <view class="field">
+          <view class="label">联系人</view>
+          <input class="input" value="{{form.contactName}}" data-field="contactName" bindinput="onInput" placeholder="请输入姓名" placeholder-class="input-placeholder" />
+        </view>
+        <view class="field">
+          <view class="label">联系电话</view>
+          <input class="input" type="number" maxlength="11" value="{{form.phone}}" data-field="phone" bindinput="onInput" placeholder="请输入手机号" placeholder-class="input-placeholder" />
+        </view>
+        <view class="field">
+          <view class="label">公司 / 品牌</view>
+          <input class="input" value="{{form.company}}" data-field="company" bindinput="onInput" placeholder="选填" placeholder-class="input-placeholder" />
+        </view>
+        <view class="field">
+          <view class="label">活动城市</view>
+          <input class="input" value="{{form.city}}" data-field="city" bindinput="onInput" placeholder="如：福州" placeholder-class="input-placeholder" />
+        </view>
+        <view class="field">
+          <view class="label">预计时间</view>
+          <input class="input" value="{{form.eventDate}}" data-field="eventDate" bindinput="onInput" placeholder="如：2026年8月" placeholder-class="input-placeholder" />
+        </view>
+        <view class="field">
+          <view class="label">合作类型</view>
+          <picker range="{{typeOptions}}" value="{{typeIndex}}" bindchange="onTypeChange">
+            <view class="picker-box">{{typeOptions[typeIndex]}}</view>
+          </picker>
+        </view>
+        <view class="field field-full">
+          <view class="label">需求说明</view>
+          <textarea class="textarea" value="{{form.requirement}}" data-field="requirement" bindinput="onInput" maxlength="300" placeholder="简单描述规模、预算、艺人方向或现场需求" placeholder-class="input-placeholder"></textarea>
+        </view>
+      </view>
+      <button class="submit-btn" bindtap="submitLead" loading="{{submitting}}" disabled="{{submitting}}">{{submitting ? '提交中...' : '提交合作意向'}}</button>
+    </view>
+  </view>
+
+  <view class="bottom-space"></view>
+  <view class="bottom-nav">
+    <view class="nav-item" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+    </view>
+    <view class="nav-item" data-target="messages" bindtap="goNav">
+      <view wx:if="{{unreadNotificationCount}}" class="nav-badge">{{unreadNotificationText}}</view>
+      <image class="nav-img" src="/images/nav-message.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>
+
+
+
+

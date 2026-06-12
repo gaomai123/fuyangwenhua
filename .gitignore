@@ -1,0 +1,29 @@
+node_modules/
+.env
+.env.*
+!.env.example
+
+# WeChat developer tool local settings
+project.private.config.json
+miniprogram/project.private.config.json
+
+# SQLite database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploaded local files
+server/uploads/avatars/*
+server/uploads/photos/*
+server/uploads/videos/*
+!server/uploads/avatars/.gitkeep
+!server/uploads/photos/.gitkeep
+!server/uploads/videos/.gitkeep
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,148 @@
+.product-detail-page {
+  background: #07101c;
+  color: #f7f8fb;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.detail-shell {
+  display: grid;
+  gap: 20rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.product-swiper {
+  border: 1rpx solid rgba(255, 205, 136, 0.38);
+  border-radius: 18rpx;
+  box-shadow: 0 20rpx 44rpx rgba(3, 8, 17, 0.28);
+  height: 470rpx;
+  overflow: hidden;
+}
+
+.detail-image {
+  height: 100%;
+  width: 100%;
+}
+
+.detail-panel,
+.detail-section,
+.contact-section {
+  background: rgba(12, 20, 34, 0.82);
+  border: 1rpx solid rgba(103, 211, 237, 0.26);
+  border-radius: 16rpx;
+  box-shadow: 0 18rpx 42rpx rgba(3, 8, 17, 0.24);
+  padding: 24rpx;
+}
+
+.detail-category {
+  color: #67d3ed;
+  font-size: 22rpx;
+  font-weight: 900;
+}
+
+.detail-name {
+  color: #fff;
+  font-size: 42rpx;
+  font-weight: 900;
+  line-height: 1.24;
+  margin-top: 10rpx;
+}
+
+.detail-price {
+  color: #ffd58b;
+  font-size: 29rpx;
+  font-weight: 900;
+  margin-top: 16rpx;
+}
+
+.detail-summary,
+.section-text {
+  color: rgba(238, 245, 255, 0.74);
+  font-size: 25rpx;
+  line-height: 1.68;
+  margin-top: 14rpx;
+  white-space: pre-wrap;
+}
+
+.section-title {
+  color: #fff;
+  font-size: 31rpx;
+  font-weight: 900;
+}
+
+.contact-grid {
+  display: grid;
+  gap: 14rpx;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 18rpx;
+}
+
+.contact-box {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1rpx solid rgba(255, 205, 136, 0.24);
+  border-radius: 14rpx;
+  min-width: 0;
+  padding: 18rpx;
+}
+
+.contact-label {
+  color: rgba(238, 245, 255, 0.56);
+  font-size: 21rpx;
+}
+
+.contact-value {
+  color: #fff;
+  font-size: 25rpx;
+  font-weight: 800;
+  line-height: 1.32;
+  margin-top: 8rpx;
+  word-break: break-all;
+}
+
+.page > .bottom-actions {
+  background: rgba(8, 14, 25, 0.9);
+  border-top: 1rpx solid rgba(255, 255, 255, 0.14);
+  bottom: calc(82rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  display: grid;
+  gap: 14rpx;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  left: 0;
+  padding: 16rpx 22rpx;
+  position: fixed;
+  right: 0;
+  z-index: 24;
+}
+
+.action-button {
+  box-sizing: border-box;
+  border-radius: 999rpx;
+  color: #fff;
+  font-size: 26rpx;
+  font-weight: 900;
+  height: 72rpx;
+  line-height: 72rpx;
+  margin: 0;
+  min-width: 0;
+  padding: 0 20rpx;
+  width: 100%;
+}
+
+.action-button::after {
+  border: 0;
+}
+
+.action-button.phone {
+  background: rgba(103, 211, 237, 0.28);
+  border: 1rpx solid rgba(103, 211, 237, 0.54);
+}
+
+.action-button.wechat {
+  background: linear-gradient(135deg, #ffd58b, #d98517);
+  color: #241405;
+}
+
+.detail-bottom-space {
+  height: calc(210rpx + env(safe-area-inset-bottom));
+}

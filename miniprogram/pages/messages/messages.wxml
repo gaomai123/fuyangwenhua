@@ -1,0 +1,102 @@
+﻿<view class="page simple-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <view class="back-fab" hover-class="back-fab-hover" bindtap="goBack">‹</view>
+
+  <view class="simple-panel">
+    <view class="simple-title">消息</view>
+    <view class="simple-desc">
+      系统通知、简历审核反馈、预约沟通提醒和音乐节合作进度会展示在这里。
+      <text wx:if="{{unreadCount}}">当前有 {{unreadCount}} 条未读消息。</text>
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+
+  <view wx:else class="message-toolbar">
+    <scroll-view scroll-x class="message-filter-scroll">
+      <view
+        wx:for="{{filterOptions}}"
+        wx:key="value"
+        class="message-filter {{activeType === item.value ? 'active' : ''}}"
+        data-type="{{item.value}}"
+        bindtap="onFilterTap"
+      >
+        {{item.label}}
+      </view>
+    </scroll-view>
+    <view
+      class="mark-all-button {{unreadCount ? '' : 'disabled'}}"
+      bindtap="onMarkAllRead"
+    >
+      {{markingAllRead ? '处理中...' : '全部已读'}}
+    </view>
+  </view>
+
+  <view wx:if="{{!loading && filteredMessages.length === 0}}" class="empty">暂无消息</view>
+
+  <view wx:if="{{!loading && filteredMessages.length}}" class="message-list">
+    <view
+      wx:for="{{filteredMessages}}"
+      wx:key="id"
+      class="message-swipe {{item.offsetX < 0 ? 'open' : ''}}"
+    >
+      <view
+        class="message-delete {{deletingId === item.id ? 'deleting' : ''}}"
+        data-id="{{item.id}}"
+        catchtap="onDeleteMessage"
+      >
+        {{deletingId === item.id ? '删除中' : '删除'}}
+      </view>
+      <view
+        class="message-card {{item.read ? 'read' : 'unread'}}"
+        style="transform: translate3d({{item.offsetX || 0}}px, 0, 0);"
+        data-id="{{item.id}}"
+        data-read="{{item.read}}"
+        bindtouchstart="onMessageTouchStart"
+        bindtouchmove="onMessageTouchMove"
+        bindtouchend="onMessageTouchEnd"
+        bindtouchcancel="onMessageTouchEnd"
+        bindtap="onMessageTap"
+      >
+        <view class="message-main">
+          <view class="message-title-row">
+            <view class="message-title">{{item.title}}</view>
+            <view wx:if="{{!item.read}}" class="unread-dot"></view>
+          </view>
+          <view class="message-content">{{item.content}}</view>
+          <view class="message-meta">
+            <text>{{item.type_label}}</text>
+            <text>{{item.display_date}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-space"></view>
+  <view class="bottom-nav">
+    <view class="nav-item" data-target="home" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-home.png" mode="aspectFit"></image>
+      <view>首页</view>
+    </view>
+    <view class="nav-item" data-target="dynamic" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-dynamic.png" mode="aspectFit"></image>
+      <view>动态</view>
+    </view>
+    <view class="nav-brand">
+      <image src="/images/fuyangwenhua-logo-nav.png" mode="aspectFit"></image>
+    </view>
+    <view class="nav-item active" data-target="messages" bindtap="goNav">
+      <view wx:if="{{unreadNotificationCount}}" class="nav-badge">{{unreadNotificationText}}</view>
+      <image class="nav-img" src="/images/nav-message-active.png" mode="aspectFit"></image>
+      <view>消息</view>
+    </view>
+    <view class="nav-item" data-target="customer" bindtap="goNav">
+      <image class="nav-img" src="/images/nav-user.png" mode="aspectFit"></image>
+      <view>我的</view>
+    </view>
+  </view>
+</view>
+
+
+

@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>福洋文化后台</title>
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>福洋文化后台</h1>
+        <p>当前后端地址：<span id="apiBase"></span></p>
+      </div>
+      <div class="topbar-actions">
+        <button id="refreshBtn" type="button">刷新当前板块</button>
+        <button id="logoutBtn" type="button" class="ghost">退出</button>
+      </div>
+    </header>
+
+    <main class="admin-layout split-layout">
+      <nav class="module-nav" aria-label="后台板块">
+        <button class="module-tab" type="button" data-module="news">动态公告</button>
+        <button class="module-tab active" type="button" data-module="festival">音乐节合作</button>
+        <a class="module-tab module-link" href="./cloud-cases.html">云开发案例后台</a>
+        <a class="module-tab module-link" href="./cases.html">本地案例上传</a>
+        <button class="module-tab" type="button" data-module="products">设备批发</button>
+        <button class="module-tab" type="button" data-module="bookings">预约意向</button>
+        <button class="module-tab" type="button" data-module="statusRequests">状态申请</button>
+        <button class="module-tab" type="button" data-module="artists">艺人资料</button>
+      </nav>
+
+      <section class="module-panel" data-module-panel="news">
+        <div class="section-title">
+          <h2>动态 / 公告管理</h2>
+          <div class="section-actions">
+            <select id="newsStatusFilter">
+              <option value="">全部状态</option>
+              <option value="draft">草稿</option>
+              <option value="published">已发布</option>
+              <option value="hidden">已隐藏</option>
+            </select>
+            <p id="newsMessage" class="message"></p>
+          </div>
+        </div>
+
+        <form id="newsForm" class="news-form">
+          <input type="hidden" name="id">
+          <label>标题<input name="title" required></label>
+          <label>分类
+            <select name="category" required>
+              <option value="平台公告">平台公告</option>
+              <option value="招募通知">招募通知</option>
+              <option value="培训动态">培训动态</option>
+              <option value="音乐节资讯">音乐节资讯</option>
+              <option value="合作公告">合作公告</option>
+              <option value="系统通知">系统通知</option>
+            </select>
+          </label>
+          <label>状态
+            <select name="status">
+              <option value="draft">草稿</option>
+              <option value="published">已发布</option>
+              <option value="hidden">已隐藏</option>
+            </select>
+          </label>
+          <label>排序<input name="sort_order" type="number" value="0"></label>
+          <label>封面图<input name="cover_file" type="file" accept="image/*"></label>
+          <label>封面地址<input name="cover_url" placeholder="/images/home-banner.jpg"></label>
+          <label>视频链接<input name="video_url" placeholder="可选"></label>
+          <label class="checkbox-label"><input name="is_top" type="checkbox"> 置顶</label>
+          <label class="wide">摘要<textarea name="summary" rows="2"></textarea></label>
+          <label class="wide">正文<textarea name="content" rows="7"></textarea></label>
+          <label class="wide">图片地址，多个用英文逗号分隔<textarea name="image_urls" rows="2"></textarea></label>
+          <div class="form-actions wide">
+            <button type="submit">保存动态</button>
+            <button id="newsFormReset" type="button" class="ghost">清空表单</button>
+          </div>
+        </form>
+
+        <div id="newsList" class="news-admin-list"></div>
+      </section>
+
+      <section class="module-panel active" data-module-panel="festival">
+        <div class="section-title">
+          <h2>音乐节合作意向</h2>
+          <div class="section-actions">
+            <select id="festivalLeadStatusFilter">
+              <option value="">全部合作</option>
+              <option value="pending">待处理</option>
+              <option value="contacted">已联系</option>
+              <option value="closed">已关闭</option>
+            </select>
+            <p id="festivalLeadMessage" class="message"></p>
+          </div>
+        </div>
+        <div id="festivalLeadList" class="booking-list"></div>
+      </section>
+
+      <section class="module-panel" data-module-panel="products">
+        <div class="section-title">
+          <h2>乐器设备批发</h2>
+          <div class="section-actions">
+            <select id="productStatusFilter">
+              <option value="">全部状态</option>
+              <option value="draft">草稿</option>
+              <option value="published">已上架</option>
+              <option value="hidden">已隐藏</option>
+            </select>
+            <p id="productMessage" class="message"></p>
+          </div>
+        </div>
+
+        <form id="productForm" class="news-form">
+          <input type="hidden" name="id">
+          <label>产品名称<input name="name" required></label>
+          <label>分类<input name="category" placeholder="乐器 / 音响设备 / 灯光设备" required></label>
+          <label>状态
+            <select name="status">
+              <option value="draft">草稿</option>
+              <option value="published">已上架</option>
+              <option value="hidden">已隐藏</option>
+            </select>
+          </label>
+          <label>排序<input name="sort_order" type="number" value="0"></label>
+          <label>封面图<input name="cover_file" type="file" accept="image/*"></label>
+          <label>封面地址<input name="cover_url" placeholder="/uploads/photos/example.jpg"></label>
+          <label>微信<input name="contact_wechat" placeholder="微信号"></label>
+          <label>电话<input name="contact_phone" placeholder="手机号 / 座机"></label>
+          <label class="wide">图片地址，多个用英文逗号分隔<textarea name="image_urls" rows="2"></textarea></label>
+          <label class="wide">简短介绍<textarea name="summary" rows="2"></textarea></label>
+          <label class="wide">规格参数<textarea name="specs" rows="3"></textarea></label>
+          <label class="wide">详情文案<textarea name="detail" rows="5"></textarea></label>
+          <div class="form-actions wide">
+            <button type="submit">保存产品</button>
+            <button id="productFormReset" type="button" class="ghost">清空表单</button>
+          </div>
+        </form>
+
+        <div id="productList" class="news-admin-list"></div>
+      </section>
+
+      <section class="module-panel" data-module-panel="bookings">
+        <div class="section-title">
+          <h2>艺人预约意向</h2>
+          <div class="section-actions">
+            <select id="bookingStatusFilter">
+              <option value="">全部预约</option>
+              <option value="pending">待处理</option>
+              <option value="contacted">已联系</option>
+              <option value="closed">已关闭</option>
+            </select>
+            <p id="bookingMessage" class="message"></p>
+          </div>
+        </div>
+        <div id="bookingList" class="booking-list"></div>
+      </section>
+
+      <section class="module-panel" data-module-panel="statusRequests">
+        <div class="section-title">
+          <h2>艺人状态申请审核</h2>
+          <div class="section-actions">
+            <select id="statusRequestFilter">
+              <option value="pending">待审核</option>
+              <option value="">全部申请</option>
+              <option value="approved">已通过</option>
+              <option value="rejected">已拒绝</option>
+            </select>
+            <p id="statusRequestMessage" class="message"></p>
+          </div>
+        </div>
+        <div id="statusRequestList" class="booking-list"></div>
+      </section>
+
+      <section class="module-panel" data-module-panel="artists">
+        <div class="section-title">
+          <h2>艺人资料</h2>
+          <div class="section-actions">
+            <select id="statusFilter">
+              <option value="pending">待审核</option>
+              <option value="">全部艺人</option>
+              <option value="approved">已通过</option>
+              <option value="rejected">已驳回</option>
+            </select>
+            <button id="hideTestDataBtn" type="button" class="warning">隐藏测试数据</button>
+            <p id="message" class="message"></p>
+          </div>
+        </div>
+        <div id="artistList" class="artist-list"></div>
+      </section>
+    </main>
+
+    <template id="bookingTemplate">
+      <article class="booking-card">
+        <div class="booking-head">
+          <div>
+            <h3><span data-field="artist_name"></span></h3>
+            <p>
+              <span data-field="contact_name"></span>
+              <span class="phone-text" data-field="phone"></span>
+              <button data-action="copyPhone" type="button" class="link-button">复制手机号</button>
+            </p>
+          </div>
+          <span data-role="statusBadge" class="status-badge"></span>
+        </div>
+        <dl class="info-grid compact">
+          <div><dt>演出城市</dt><dd data-field="city"></dd></div>
+          <div><dt>预计时间</dt><dd data-field="event_time"></dd></div>
+          <div><dt>预算</dt><dd data-field="budget"></dd></div>
+          <div><dt>提交时间</dt><dd data-field="created_at"></dd></div>
+        </dl>
+        <p class="bio" data-field="requirement"></p>
+        <div class="actions">
+          <button data-action="pending" type="button" class="ghost">待处理</button>
+          <button data-action="contacted" type="button">标记已联系</button>
+          <button data-action="closed" type="button" class="ghost">关闭</button>
+        </div>
+      </article>
+    </template>
+
+    <template id="festivalLeadTemplate">
+      <article class="booking-card">
+        <div class="booking-head">
+          <div>
+            <h3><span data-field="cooperation_type"></span></h3>
+            <p>
+              <span data-field="contact_name"></span>
+              <span class="phone-text" data-field="phone"></span>
+              <button data-action="copyPhone" type="button" class="link-button">复制手机号</button>
+            </p>
+          </div>
+          <span data-role="statusBadge" class="status-badge"></span>
+        </div>
+        <dl class="info-grid compact">
+          <div><dt>公司 / 品牌</dt><dd data-field="company"></dd></div>
+          <div><dt>活动城市</dt><dd data-field="city"></dd></div>
+          <div><dt>预计时间</dt><dd data-field="event_date"></dd></div>
+          <div><dt>提交时间</dt><dd data-field="created_at"></dd></div>
+        </dl>
+        <p class="bio" data-field="requirement"></p>
+        <div class="actions">
+          <button data-action="pending" type="button" class="ghost">待处理</button>
+          <button data-action="contacted" type="button">标记已联系</button>
+          <button data-action="closed" type="button" class="ghost">关闭</button>
+        </div>
+      </article>
+    </template>
+
+    <template id="statusRequestTemplate">
+      <article class="booking-card status-request-card">
+        <div class="booking-head">
+          <div>
+            <h3><span data-field="artist_name"></span></h3>
+            <p>
+              <span data-field="artist_city"></span>
+              <span data-field="customer_nickname"></span>
+              <span class="phone-text" data-field="artist_phone"></span>
+            </p>
+          </div>
+          <span data-role="statusBadge" class="status-badge"></span>
+        </div>
+        <dl class="info-grid compact">
+          <div><dt>当前状态</dt><dd data-field="current_status"></dd></div>
+          <div><dt>申请变更为</dt><dd data-field="requested_status"></dd></div>
+          <div><dt>申请时间</dt><dd data-field="created_at"></dd></div>
+          <div><dt>审核备注</dt><dd data-field="admin_remark"></dd></div>
+        </dl>
+        <p class="bio" data-field="reason"></p>
+        <div class="actions">
+          <button data-action="approve" type="button">通过</button>
+          <button data-action="reject" type="button" class="warning">拒绝</button>
+        </div>
+      </article>
+    </template>
+
+    <template id="artistCardTemplate">
+      <article class="artist-card">
+        <div class="artist-card-header">
+          <div>
+            <h3 data-field="stage_name"></h3>
+            <p>
+              <span data-field="city"></span>
+              <span data-field="tags"></span>
+              <span data-field="status"></span>
+              <span data-field="visible_status"></span>
+            </p>
+          </div>
+          <div class="actions">
+            <button data-action="approve" type="button">通过</button>
+            <button data-action="toggleWorkStatus" type="button" class="ghost">设为已下档</button>
+            <button data-action="toggleHidden" type="button" class="ghost">隐藏</button>
+            <button data-action="reject" type="button" class="warning">驳回</button>
+            <button data-action="delete" type="button" class="danger">删除</button>
+          </div>
+        </div>
+
+        <div class="media-panel" data-role="mediaPanel"></div>
+
+        <dl class="info-grid">
+          <div><dt>真实姓名</dt><dd data-field="real_name"></dd></div>
+          <div><dt>手机号</dt><dd data-field="phone"></dd></div>
+          <div><dt>性别</dt><dd data-field="gender"></dd></div>
+          <div><dt>年龄</dt><dd data-field="age"></dd></div>
+          <div><dt>身高</dt><dd data-field="height"></dd></div>
+          <div><dt>报价</dt><dd data-field="price"></dd></div>
+          <div><dt>艺人类型</dt><dd data-field="category"></dd></div>
+          <div><dt>唱功类型</dt><dd data-field="singing_type"></dd></div>
+          <div><dt>调度城市</dt><dd data-field="dispatch_cities"></dd></div>
+          <div><dt>档期状态</dt><dd data-field="work_status"></dd></div>
+          <div><dt>展示状态</dt><dd data-field="visible_status"></dd></div>
+          <div><dt>视频链接</dt><dd data-field="video_url"></dd></div>
+          <div><dt>驳回原因</dt><dd data-field="reject_reason"></dd></div>
+        </dl>
+
+        <p class="bio" data-field="bio"></p>
+      </article>
+    </template>
+
+    <template id="productCardTemplate">
+      <article class="news-card">
+        <button type="button" class="media-thumb-button" data-action="previewCover">
+          <img class="news-cover" data-field="cover_image" alt="产品封面">
+          <span class="media-thumb-empty">暂无封面</span>
+        </button>
+        <div>
+          <h3 data-field="name"></h3>
+          <p data-field="summary"></p>
+          <div class="news-meta">
+            <span data-field="category"></span>
+            <span>批发价联系我们</span>
+            <span data-field="status"></span>
+            <span data-field="sort_order"></span>
+            <span data-field="created_at"></span>
+          </div>
+          <div class="actions">
+            <button data-action="editProduct" type="button">编辑</button>
+            <button data-action="publishProduct" type="button">上架</button>
+            <button data-action="hideProduct" type="button" class="ghost">隐藏</button>
+            <button data-action="draftProduct" type="button" class="ghost">草稿</button>
+            <button data-action="deleteProduct" type="button" class="danger">删除</button>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/admin.js"></script>
+    <script src="./js/products-admin.js"></script>
+  </body>
+</html>

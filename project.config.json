@@ -1,0 +1,65 @@
+{
+  "description": "fuyang culture mini program",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.14.2",
+  "appid": "wx1baf1e64da7ee1ba",
+  "projectname": "artist-miniapp",
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "miniprogram/cloudfunctions/",
+  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "admin-web"
+      },
+      {
+        "type": "folder",
+        "value": "server"
+      },
+      {
+        "type": "folder",
+        "value": "excluded-assets"
+      },
+      {
+        "type": "folder",
+        "value": "miniprogram/cloudfunctions"
+      },
+      {
+        "type": "file",
+        "value": "miniprogram/project.config.json"
+      },
+      {
+        "type": "file",
+        "value": "miniprogram/project.private.config.json"
+      }
+    ],
+    "include": []
+  },
+  "editorSetting": {}
+}

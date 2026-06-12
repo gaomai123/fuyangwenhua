@@ -1,0 +1,75 @@
+.booking-page {
+  display: grid;
+  gap: 22rpx;
+}
+
+.booking-head {
+  background: rgba(18, 25, 39, 0.76);
+  border: 1rpx solid rgba(255, 190, 104, 0.46);
+  border-radius: 28rpx;
+  box-shadow: 0 18rpx 42rpx rgba(4, 9, 18, 0.3), inset 0 0 30rpx rgba(86, 177, 255, 0.1);
+  padding: 28rpx;
+}
+
+.eyebrow {
+  color: rgba(255, 194, 102, 0.88);
+  font-size: 20rpx;
+}
+
+.title {
+  color: #f8fbff;
+  font-size: 42rpx;
+  font-weight: 800;
+  margin-top: 8rpx;
+}
+
+.subtitle {
+  color: rgba(238, 245, 255, 0.68);
+  font-size: 24rpx;
+  line-height: 1.5;
+  margin-top: 8rpx;
+}
+
+.booking-form,
+.section {
+  display: grid;
+  gap: 18rpx;
+}
+
+.section {
+  background: rgba(24, 31, 43, 0.72);
+  border: 1rpx solid rgba(255, 179, 80, 0.58);
+  border-radius: 24rpx;
+  box-shadow: 0 18rpx 42rpx rgba(4, 9, 18, 0.28), inset 0 0 30rpx rgba(86, 177, 255, 0.1);
+  padding: 22rpx;
+}
+
+label {
+  color: rgba(248, 251, 255, 0.9);
+  display: grid;
+  gap: 8rpx;
+  font-size: 28rpx;
+}
+
+input,
+textarea {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1rpx solid rgba(255, 210, 143, 0.3);
+  border-radius: 14rpx;
+  box-sizing: border-box;
+  color: #f8fbff;
+  padding: 18rpx;
+}
+
+input {
+  height: 76rpx;
+}
+
+textarea {
+  min-height: 180rpx;
+  width: 100%;
+}
+
+.submit-button {
+  margin-top: 8rpx;
+}

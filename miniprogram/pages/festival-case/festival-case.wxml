@@ -1,0 +1,37 @@
+﻿<view class="page festival-case-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <navigator class="back-fab" open-type="navigateBack" delta="1" hover-class="back-fab-hover">‹</navigator>
+
+  <view wx:if="{{item}}" class="case-detail">
+    <view class="video-card">
+      <video
+        wx:if="{{videoUrl && videoIsPlayable}}"
+        class="case-video"
+        src="{{videoUrl}}"
+        controls
+        object-fit="contain"
+      ></video>
+
+      <view wx:elif="{{videoUrl}}" class="video-link-box">
+        <image class="link-cover" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="link-mask">
+          <view class="link-title">视频链接</view>
+          <view class="link-text">{{videoUrl}}</view>
+          <button class="copy-button" bindtap="copyVideoLink">复制链接</button>
+        </view>
+      </view>
+
+      <image wx:else class="case-video-cover" src="{{item.image}}" mode="aspectFill"></image>
+    </view>
+
+    <view class="info-card">
+      <view class="case-tag">{{item.tag}}</view>
+      <view class="case-title">{{item.title}}</view>
+      <view class="case-location">{{item.location}}</view>
+      <view class="case-desc">{{item.desc}}</view>
+      <view class="case-detail-text">{{item.detail}}</view>
+    </view>
+  </view>
+
+  <view wx:else class="empty">案例不存在</view>
+</view>

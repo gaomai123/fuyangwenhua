@@ -1,0 +1,132 @@
+.festival-case-page {
+  color: #f7f8fb;
+  min-height: 100vh;
+  padding-left: 22rpx;
+  padding-right: 22rpx;
+}
+
+.case-detail {
+  display: grid;
+  gap: 24rpx;
+  padding: 18rpx 0 46rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.video-card,
+.info-card {
+  background: rgba(12, 20, 34, 0.8);
+  border: 1rpx solid rgba(255, 214, 151, 0.42);
+  border-radius: 18rpx;
+  box-shadow: 0 18rpx 42rpx rgba(3, 8, 17, 0.28);
+  overflow: hidden;
+}
+
+.case-video,
+.case-video-cover,
+.video-link-box {
+  display: block;
+  height: 420rpx;
+  width: 100%;
+}
+
+.video-link-box {
+  position: relative;
+}
+
+.link-cover {
+  height: 100%;
+  width: 100%;
+}
+
+.link-mask {
+  align-items: flex-start;
+  background: linear-gradient(180deg, rgba(9, 16, 27, 0.34), rgba(9, 16, 27, 0.9));
+  box-sizing: border-box;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  inset: 0;
+  justify-content: flex-end;
+  padding: 26rpx;
+  position: absolute;
+}
+
+.link-title {
+  font-size: 30rpx;
+  font-weight: 900;
+}
+
+.link-text {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 23rpx;
+  line-height: 1.45;
+  margin-top: 12rpx;
+  word-break: break-all;
+}
+
+.copy-button {
+  background: linear-gradient(135deg, #d98517, #f1b75b);
+  border-radius: 999rpx;
+  color: #fff;
+  font-size: 25rpx;
+  font-weight: 800;
+  height: 64rpx;
+  line-height: 64rpx;
+  margin: 20rpx 0 0;
+  padding: 0 28rpx;
+}
+
+.copy-button::after {
+  border: 0;
+}
+
+.info-card {
+  padding: 28rpx;
+}
+
+.case-tag {
+  background: linear-gradient(135deg, #d98517, #f7c46b);
+  border-radius: 999rpx;
+  color: #fff;
+  display: inline-flex;
+  font-size: 23rpx;
+  font-weight: 900;
+  line-height: 42rpx;
+  padding: 0 18rpx;
+}
+
+.case-title {
+  color: #fff;
+  font-size: 42rpx;
+  font-weight: 900;
+  line-height: 1.25;
+  margin-top: 18rpx;
+}
+
+.case-location {
+  color: #ffd58b;
+  font-size: 25rpx;
+  line-height: 1.45;
+  margin-top: 12rpx;
+}
+
+.case-desc,
+.case-detail-text {
+  color: rgba(238, 245, 255, 0.84);
+  font-size: 27rpx;
+  line-height: 1.72;
+  margin-top: 20rpx;
+}
+
+.case-detail-text {
+  color: rgba(238, 245, 255, 0.7);
+}
+
+.empty {
+  color: rgba(238, 245, 255, 0.72);
+  padding-top: 180rpx;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}

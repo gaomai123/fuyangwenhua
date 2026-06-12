@@ -1,0 +1,59 @@
+﻿<view class="page my-artist-page">
+  <image class="app-bg" src="cloud://cloud1-d6gpw3i9686e94bf4.636c-cloud1-d6gpw3i9686e94bf4-1433995474/assets/app-global-bg-original.jpg" mode="aspectFill"></image>
+  <navigator class="back-fab" open-type="navigateBack" delta="1" hover-class="back-fab-hover">‹</navigator>
+
+  <view class="page-head">
+    <view class="eyebrow">MY ARTIST PROFILE</view>
+    <view class="page-title">我的艺人档案</view>
+    <view class="page-desc">录用后绑定的平台艺人资料</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">加载中...</view>
+  <view wx:elif="{{!artist}}" class="empty">暂未绑定艺人档案</view>
+
+  <view wx:else class="artist-card">
+    <view class="hero">
+      <image wx:if="{{artist.avatar_url}}" class="avatar" src="{{artist.avatar_url}}" mode="aspectFill"></image>
+      <view wx:else class="avatar placeholder">艺</view>
+      <view class="hero-info">
+        <view class="stage-name">{{artist.stage_name}}</view>
+        <view class="meta">{{artist.city || '-'}} / {{artist.category || '音乐人'}}</view>
+        <view class="status-row">
+          <text>{{workStatusText[artist.work_status] || artist.work_status}}</text>
+          <text>{{reviewStatusText[artist.review_status] || artist.review_status}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="action-panel">
+      <view>
+        <view class="action-title">下店状态管理</view>
+        <view class="action-desc">状态会实时同步到艺人库和预约按钮。</view>
+      </view>
+    </view>
+
+    <view class="status-options">
+      <button
+        wx:for="{{statusOptions}}"
+        wx:key="value"
+        class="status-option {{artist.work_status === item.value ? 'active' : ''}}"
+        data-value="{{item.value}}"
+        bindtap="updateStatus"
+        disabled="{{updating}}"
+      >
+        <view class="option-title">{{item.title}}</view>
+        <view class="option-desc">{{item.desc}}</view>
+      </button>
+    </view>
+
+    <view class="info-list">
+      <view class="info-row"><text>性别</text><text>{{artist.gender || '-'}}</text></view>
+      <view class="info-row"><text>艺人类型</text><text>{{artist.category || '-'}}</text></view>
+      <view class="info-row"><text>唱功类型</text><text>{{artist.singing_type || '-'}}</text></view>
+      <view class="info-row"><text>调度城市</text><text>{{artist.dispatch_cities || '-'}}</text></view>
+      <view class="info-row"><text>参考薪资</text><text>{{artist.salary_display || '面议'}}</text></view>
+      <view class="info-row"><text>当前状态</text><text>{{workStatusText[artist.work_status] || artist.work_status}}</text></view>
+      <view class="info-row"><text>审核状态</text><text>{{reviewStatusText[artist.review_status] || artist.review_status}}</text></view>
+    </view>
+  </view>
+</view>

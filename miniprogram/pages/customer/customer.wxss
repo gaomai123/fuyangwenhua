@@ -1,0 +1,261 @@
+.customer-page {
+  color: #f5f7fa;
+  min-height: 100vh;
+}
+
+.account-card,
+.dashboard-section {
+  background: rgba(13, 20, 31, 0.86);
+  border: 1rpx solid rgba(255, 255, 255, 0.085);
+  border-radius: 22rpx;
+  box-shadow: 0 18rpx 42rpx rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.account-card {
+  align-items: center;
+  display: flex;
+  gap: 18rpx;
+  padding: 24rpx;
+}
+
+.avatar {
+  align-items: center;
+  background: linear-gradient(145deg, rgba(226, 181, 109, 0.2), rgba(255, 255, 255, 0.05));
+  border: 1rpx solid rgba(226, 181, 109, 0.32);
+  border-radius: 18rpx;
+  color: #e4b970;
+  display: flex;
+  flex: 0 0 auto;
+  font-size: 38rpx;
+  font-weight: 700;
+  height: 92rpx;
+  justify-content: center;
+  width: 92rpx;
+}
+
+.avatar-image {
+  display: block;
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.nickname {
+  color: #f5f6f8;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.account-state {
+  color: rgba(225, 231, 239, 0.5);
+  font-size: 22rpx;
+  margin-top: 7rpx;
+}
+
+.profile-action {
+  background: rgba(226, 181, 109, 0.08);
+  border: 1rpx solid rgba(226, 181, 109, 0.18);
+  border-radius: 999rpx;
+  color: #dfb36e;
+  flex: 0 0 auto;
+  font-size: 21rpx;
+  padding: 12rpx 16rpx;
+}
+
+.profile-editor {
+  background: rgba(13, 20, 31, 0.94);
+  border: 1rpx solid rgba(255, 255, 255, 0.09);
+  border-radius: 22rpx;
+  box-shadow: 0 18rpx 42rpx rgba(0, 0, 0, 0.24);
+  margin-top: 18rpx;
+  padding: 24rpx;
+  position: relative;
+  z-index: 2;
+}
+
+.editor-title {
+  color: #f3f4f6;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.editor-desc {
+  color: rgba(225, 231, 239, 0.5);
+  font-size: 22rpx;
+  margin-top: 6rpx;
+}
+
+.avatar-picker {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1rpx dashed rgba(226, 181, 109, 0.3);
+  border-radius: 18rpx;
+  color: #dfb36e;
+  display: flex;
+  font-size: 23rpx;
+  height: 128rpx;
+  justify-content: center;
+  margin: 22rpx auto 0;
+  overflow: hidden;
+  padding: 0;
+  width: 128rpx;
+}
+
+.avatar-picker::after {
+  border: 0;
+}
+
+.avatar-picker image {
+  height: 100%;
+  width: 100%;
+}
+
+.nickname-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1rpx solid rgba(255, 255, 255, 0.09);
+  border-radius: 14rpx;
+  box-sizing: border-box;
+  height: 78rpx;
+  margin-top: 20rpx;
+  padding: 0 20rpx;
+  width: 100%;
+}
+
+.editor-actions {
+  display: grid;
+  gap: 14rpx;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 20rpx;
+}
+
+.editor-button {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  min-height: 72rpx;
+  width: 100%;
+}
+
+.dashboard-section {
+  margin-top: 18rpx;
+  padding: 24rpx;
+}
+
+.section-head {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+}
+
+.section-title {
+  color: #f3f4f6;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.section-subtitle {
+  color: rgba(225, 231, 239, 0.5);
+  font-size: 22rpx;
+  margin-top: 6rpx;
+}
+
+.service-list {
+  margin-top: 20rpx;
+}
+
+.quick-item {
+  align-items: center;
+  border-bottom: 1rpx solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  gap: 14rpx;
+  min-height: 98rpx;
+  padding: 10rpx 2rpx;
+}
+
+.quick-item:last-child {
+  border-bottom: 0;
+}
+
+.quick-icon {
+  align-items: center;
+  background: rgba(211, 159, 80, 0.12);
+  border: 1rpx solid rgba(221, 174, 98, 0.24);
+  color: #dfb36e;
+  display: flex;
+  flex: 0 0 auto;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.quick-icon {
+  border-radius: 14rpx;
+  font-size: 24rpx;
+  height: 58rpx;
+  width: 58rpx;
+}
+
+.quick-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.quick-title {
+  color: #f2f4f7;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.quick-desc {
+  color: rgba(222, 228, 236, 0.52);
+  font-size: 21rpx;
+  line-height: 1.45;
+  margin-top: 5rpx;
+}
+
+.career-section {
+  background:
+    linear-gradient(135deg, rgba(226, 181, 109, 0.07), transparent 58%),
+    rgba(13, 20, 31, 0.86);
+}
+
+.career-entry {
+  align-items: center;
+  background: rgba(226, 181, 109, 0.055);
+  border: 1rpx solid rgba(226, 181, 109, 0.14);
+  border-radius: 16rpx;
+  display: flex;
+  gap: 16rpx;
+  margin-top: 20rpx;
+  min-height: 104rpx;
+  padding: 16rpx;
+}
+
+.career-icon {
+  align-items: center;
+  border-radius: 14rpx;
+  display: flex;
+  flex: 0 0 auto;
+  font-size: 24rpx;
+  font-weight: 700;
+  height: 58rpx;
+  justify-content: center;
+  width: 58rpx;
+}
+
+.career-icon {
+  background: rgba(226, 181, 109, 0.14);
+  border: 1rpx solid rgba(226, 181, 109, 0.24);
+  color: #dfb36e;
+}
+
+.progress-arrow {
+  color: rgba(228, 233, 240, 0.34);
+  flex: 0 0 auto;
+  font-size: 40rpx;
+  line-height: 1;
+}
