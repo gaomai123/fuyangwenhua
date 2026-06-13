@@ -40,7 +40,18 @@
 
       <view class="form-field">
         <view class="form-label">风格标签</view>
-        <input name="tags" placeholder="例如：民谣、流行、DJ" placeholder-class="input-placeholder" />
+        <view class="tag-hint">可多选，最多选择 5 个</view>
+        <view class="tag-options">
+          <view
+            wx:for="{{tagOptions}}"
+            wx:key="label"
+            class="tag-option {{item.selected ? 'selected' : ''}}"
+            data-index="{{index}}"
+            bindtap="toggleTag"
+          >
+            {{item.label}}
+          </view>
+        </view>
       </view>
     </view>
 
@@ -89,13 +100,6 @@
         <view class="form-label">性别</view>
         <picker range="{{genderOptions}}" data-field="gender" bindchange="onPickerChange">
           <view class="picker-value {{form.gender ? '' : 'placeholder'}}">{{form.gender ? form.gender : '请选择性别'}}</view>
-        </picker>
-      </view>
-
-      <view class="form-field">
-        <view class="form-label">唱功类型</view>
-        <picker range="{{singingTypeOptions}}" data-field="singing_type" bindchange="onPickerChange">
-          <view class="picker-value {{form.singing_type ? '' : 'placeholder'}}">{{form.singing_type ? form.singing_type : '请选择唱功类型'}}</view>
         </picker>
       </view>
 

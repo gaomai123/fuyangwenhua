@@ -34,6 +34,38 @@
   font-weight: 700;
 }
 
+.tag-hint {
+  color: rgba(238, 245, 255, 0.52);
+  font-size: 22rpx;
+}
+
+.tag-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14rpx;
+}
+
+.tag-option {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1rpx solid rgba(255, 210, 143, 0.24);
+  border-radius: 999rpx;
+  box-sizing: border-box;
+  color: rgba(238, 245, 255, 0.72);
+  font-size: 24rpx;
+  line-height: 56rpx;
+  min-width: 108rpx;
+  padding: 0 22rpx;
+  text-align: center;
+}
+
+.tag-option.selected {
+  background: linear-gradient(135deg, rgba(233, 194, 125, 0.92), rgba(201, 147, 72, 0.92));
+  border-color: rgba(255, 225, 174, 0.72);
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.2);
+  color: #171009;
+  font-weight: 700;
+}
+
 input,
 textarea,
 .picker-value {

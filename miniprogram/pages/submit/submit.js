@@ -9,6 +9,8 @@ const requiredFields = [
   ['category', '请选择艺人类型']
 ];
 
+const tagLabels = ['流行', '民谣', '摇滚', '爵士', '说唱', 'R&B', '民族', '电音', '抒情', '乐队'];
+
 function getInitialUploadState() {
   return {
     avatarTemp: '',
@@ -17,12 +19,15 @@ function getInitialUploadState() {
     submitting: false,
     categoryIndex: -1,
     genderIndex: -1,
-    singingTypeIndex: -1,
     priceIndex: -1,
+    selectedTags: [],
+    tagOptions: tagLabels.map((label) => ({
+      label,
+      selected: false
+    })),
     form: {
       category: '',
       gender: '',
-      singing_type: '',
       price: ''
     }
   };
@@ -33,7 +38,6 @@ function buildInitialData() {
 
   state.categoryOptions = ['歌手', '乐手', '民乐', 'DJ', 'Dancer', 'MC', '其他'];
   state.genderOptions = ['男', '女', '其他'];
-  state.singingTypeOptions = ['流行', '民谣', '摇滚', '说唱', '爵士', '民族', '其他'];
   state.salaryOptions = ['400-500', '500-600', '600-700'];
   state.unreadNotificationCount = 0;
   state.unreadNotificationText = '';
@@ -108,7 +112,6 @@ Page({
     const optionMap = {
       category: this.data.categoryOptions,
       gender: this.data.genderOptions,
-      singing_type: this.data.singingTypeOptions,
       price: this.data.salaryOptions
     };
     const option = optionMap[field] ? optionMap[field][index] : '';
@@ -117,6 +120,31 @@ Page({
     patch[field + 'Index'] = index;
     patch['form.' + field] = option || '';
     this.setData(patch);
+  },
+
+  toggleTag(event) {
+    const index = Number(event.currentTarget.dataset.index);
+    const tagOptions = this.data.tagOptions.map((item) => ({ ...item }));
+    const option = tagOptions[index];
+
+    if (!option) {
+      return;
+    }
+
+    if (!option.selected && this.data.selectedTags.length >= 5) {
+      wx.showToast({
+        title: '最多选择 5 个风格标签',
+        icon: 'none'
+      });
+      return;
+    }
+
+    option.selected = !option.selected;
+
+    this.setData({
+      tagOptions,
+      selectedTags: tagOptions.filter((item) => item.selected).map((item) => item.label)
+    });
   },
 
   chooseAvatar() {
@@ -214,7 +242,6 @@ Page({
     const values = Object.assign({}, event.detail.value, {
       category: this.data.form.category,
       gender: this.data.form.gender,
-      singing_type: this.data.form.singing_type,
       price: this.data.form.price
     });
 
@@ -231,7 +258,7 @@ Page({
     ])
       .then((results) => {
         const profile = Object.assign({}, values, {
-          tags: values.tags || values.category,
+          tags: this.data.selectedTags,
           avatar_file_id: results[0],
           photo_file_ids: results[1],
           video_file_ids: results[2],
