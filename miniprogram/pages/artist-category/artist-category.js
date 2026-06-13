@@ -33,10 +33,14 @@ Page({
       { label: '\u6b4c\u624b', value: '\u6b4c\u624b' },
       { label: '\u4e50\u624b', value: '\u4e50\u624b' },
       { label: '\u6c11\u4e50', value: '\u6c11\u4e50' },
-      { label: 'DJ', value: 'DJ' },
       { label: 'Dancer', value: 'Dancer' },
       { label: 'MC', value: 'MC' },
-      { label: '\u5176\u4ed6', value: '\u5176\u4ed6' }
+      { label: '\u6c11\u821e\u821e\u8005', value: '\u6c11\u821e\u821e\u8005' },
+      { label: 'VJ', value: 'VJ' },
+      { label: 'LJ', value: 'LJ' },
+      { label: '\u97e9\u821e\u821e\u8005', value: '\u97e9\u821e\u821e\u8005' },
+      { label: '\u5609\u5bbe DJ', value: '\u5609\u5bbe DJ' },
+      { label: '\u9a7b\u573aDJ', value: '\u9a7b\u573aDJ' }
     ],
     cityOptions: [
       { label: '\u5168\u90e8\u57ce\u5e02', value: '' },

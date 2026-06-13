@@ -36,7 +36,19 @@ function getInitialUploadState() {
 function buildInitialData() {
   const state = getInitialUploadState();
 
-  state.categoryOptions = ['歌手', '乐手', '民乐', 'DJ', 'Dancer', 'MC', '其他'];
+  state.categoryOptions = [
+    '歌手',
+    '乐手',
+    '民乐',
+    'Dancer',
+    'MC',
+    '民舞舞者',
+    'VJ',
+    'LJ',
+    '韩舞舞者',
+    '嘉宾 DJ',
+    '驻场DJ'
+  ];
   state.genderOptions = ['男', '女', '其他'];
   state.salaryOptions = ['400-500', '500-600', '600-700'];
   state.unreadNotificationCount = 0;
