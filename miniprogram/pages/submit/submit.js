@@ -9,7 +9,7 @@ const requiredFields = [
   ['category', '请选择艺人类型']
 ];
 
-const tagLabels = ['流行', '民谣', '摇滚', '爵士', '说唱', 'R&B', '民族', '电音', '抒情', '乐队'];
+const tagLabels = ['流行', '民谣', '摇滚', '爵士', '说唱', 'R&B', '民族', '电音', '大嗓', '弹唱'];
 
 function getInitialUploadState() {
   return {
