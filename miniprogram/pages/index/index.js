@@ -154,10 +154,13 @@ Page({
     this.setData({ loadingArtists: true });
 
     try {
-      const result = await getArtists();
+      const result = await getArtists({
+        featured_only: true,
+        limit: 20
+      });
 
       this.setData({
-        recommendedArtists: (result.data || []).slice(0, 6).map((artist) => this.normalizeArtist(artist))
+        recommendedArtists: (result.data || []).slice(0, 20).map((artist) => this.normalizeArtist(artist))
       });
       this.hasLoaded = true;
       this.lastLoadedAt = Date.now();

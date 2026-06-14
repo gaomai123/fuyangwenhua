@@ -816,6 +816,7 @@ function resetArtistForm() {
   artistForm.elements.status.value = 'pending';
   artistForm.elements.work_status.value = 'available';
   artistForm.elements.is_hidden.checked = false;
+  artistForm.elements.is_featured_guest.checked = false;
   setMessage(artistMessage, '');
 }
 
@@ -837,6 +838,7 @@ function collectArtistData(avatarUrl, coverUrl) {
     status: artistForm.elements.status.value,
     work_status: artistForm.elements.work_status.value,
     is_hidden: artistForm.elements.is_hidden.checked,
+    is_featured_guest: artistForm.elements.is_featured_guest.checked,
     avatar_url: avatarUrl,
     art_photo_urls: coverUrl,
     life_photo_urls: artistForm.elements.life_photo_urls.value.trim(),
@@ -874,6 +876,7 @@ function editArtist(item) {
   artistForm.elements.status.value = item.status || 'pending';
   artistForm.elements.work_status.value = item.work_status || 'available';
   artistForm.elements.is_hidden.checked = Boolean(item.is_hidden);
+  artistForm.elements.is_featured_guest.checked = Boolean(item.is_featured_guest);
   artistForm.elements.avatar_url.value = item.avatar_url || '';
   artistForm.elements.art_photo_urls.value = item.art_photo_urls || '';
   artistForm.elements.life_photo_urls.value = item.life_photo_urls || '';
@@ -940,6 +943,7 @@ function renderArtist(item) {
     <div class="artist-state-row">
       <span class="artist-state">${escapeHtml(item.work_status === 'available' ? '可预约 / 待岗' : item.work_status === 'on_duty' ? '已下店' : '暂停接单')}</span>
       <span class="artist-state">${item.is_hidden ? '已隐藏' : '小程序展示中'}</span>
+      <span class="artist-state">${item.is_featured_guest ? '飞行嘉宾艺人' : '普通艺人'}</span>
     </div>
     <dl class="info-grid compact">
       <div><dt>真实姓名</dt><dd>${escapeHtml(item.real_name || '-')}</dd></div>
@@ -976,6 +980,12 @@ function renderArtist(item) {
   });
   addAction(actions, '设为待岗', 'ghost', () => updateArtistState(item.id, { work_status: 'available' }));
   addAction(actions, '设为下店', 'ghost', () => updateArtistState(item.id, { work_status: 'on_duty' }));
+  addAction(
+    actions,
+    item.is_featured_guest ? '取消飞行嘉宾' : '设为飞行嘉宾',
+    item.is_featured_guest ? 'ghost' : '',
+    () => updateArtistState(item.id, { is_featured_guest: !item.is_featured_guest })
+  );
   addAction(actions, item.is_hidden ? '恢复展示' : '隐藏', 'ghost', () => updateArtistState(item.id, { is_hidden: !item.is_hidden }));
   addAction(actions, '删除', 'danger', () => deleteArtist(item.id));
   return card;

@@ -150,6 +150,7 @@ function normalizeArtist(input) {
     ? input.work_status
     : 'available';
   const isHidden = Boolean(input.is_hidden);
+  const isFeaturedGuest = Boolean(input.is_featured_guest);
   const tags = splitMediaList(input.tags);
   const artPhotos = splitMediaList(input.art_photo_urls);
   const lifePhotos = splitMediaList(input.life_photo_urls);
@@ -172,6 +173,7 @@ function normalizeArtist(input) {
     status,
     work_status: workStatus,
     is_hidden: isHidden,
+    is_featured_guest: isFeaturedGuest,
     can_book: status === 'approved' && workStatus === 'available' && !isHidden,
     avatar_url: cleanString(input.avatar_url),
     art_photo_file_ids: artPhotos,
@@ -325,7 +327,8 @@ async function saveArtist(event) {
       stage_name: data.stage_name,
       status: data.status,
       work_status: data.work_status,
-      is_hidden: data.is_hidden
+      is_hidden: data.is_hidden,
+      is_featured_guest: data.is_featured_guest
     });
     return { id };
   }
@@ -368,6 +371,10 @@ async function updateArtistState(event) {
     data.is_hidden = Boolean(patch.is_hidden);
   }
 
+  if (patch.is_featured_guest !== undefined) {
+    data.is_featured_guest = Boolean(patch.is_featured_guest);
+  }
+
   const nextWorkStatus = data.work_status || artist.work_status || 'available';
   const nextHidden = data.is_hidden !== undefined ? data.is_hidden : Boolean(artist.is_hidden);
   data.can_book = artist.status === 'approved' && nextWorkStatus === 'available' && !nextHidden;
@@ -377,6 +384,9 @@ async function updateArtistState(event) {
     id,
     work_status: nextWorkStatus,
     is_hidden: nextHidden,
+    is_featured_guest: data.is_featured_guest !== undefined
+      ? data.is_featured_guest
+      : Boolean(artist.is_featured_guest),
     can_book: data.can_book
   });
   return { id, ...data };

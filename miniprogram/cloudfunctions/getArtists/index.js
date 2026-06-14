@@ -62,10 +62,16 @@ function regExp(value) {
 
 exports.main = async (event) => {
   const filters = event.filters || {};
+  const requestedLimit = Number(filters.limit || 50);
+  const limit = Math.max(1, Math.min(requestedLimit, 100));
   const where = {
     status: 'approved',
     is_hidden: _.neq(true)
   };
+
+  if (filters.featured_only) {
+    where.is_featured_guest = true;
+  }
 
   applyExactFilter(where, filters, 'city');
   applyExactFilter(where, filters, 'gender');
@@ -99,7 +105,7 @@ exports.main = async (event) => {
     const result = await db
       .collection('artists')
       .where(condition)
-      .limit(50)
+      .limit(limit)
       .get();
 
     return {
