@@ -327,6 +327,12 @@ label {
   max-width: 180px;
 }
 
+.artist-head-actions {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
 .artist-list {
   display: grid;
   gap: 16px;
@@ -335,13 +341,11 @@ label {
 .artist-manager-layout {
   display: grid;
   gap: 20px;
-  grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .artist-form {
-  align-self: start;
-  position: sticky;
-  top: 16px;
+  margin-bottom: 4px;
 }
 
 .artist-card.is-hidden {
@@ -971,9 +975,15 @@ label {
   }
 
   .topbar-actions,
+  .artist-head-actions,
   .actions,
   .cloud-login-form {
     justify-content: flex-start;
+  }
+
+  .artist-head-actions {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .cloud-login-form {

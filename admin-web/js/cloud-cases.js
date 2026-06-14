@@ -38,6 +38,7 @@ const artistForm = document.querySelector('#artistForm');
 const artistList = document.querySelector('#artistList');
 const artistMessage = document.querySelector('#artistMessage');
 const artistResetBtn = document.querySelector('#artistResetBtn');
+const artistCreateBtn = document.querySelector('#artistCreateBtn');
 const artistStatusFilter = document.querySelector('#artistStatusFilter');
 const logList = document.querySelector('#logList');
 const mediaPreviewModal = document.querySelector('#mediaPreviewModal');
@@ -809,7 +810,7 @@ function firstMedia(value) {
     .find(Boolean) || '';
 }
 
-function resetArtistForm() {
+function resetArtistForm({ hide = true } = {}) {
   artistForm.reset();
   artistForm.elements.id.value = '';
   artistForm.elements.category.value = '歌手';
@@ -818,6 +819,16 @@ function resetArtistForm() {
   artistForm.elements.is_hidden.checked = false;
   artistForm.elements.is_featured_guest.checked = false;
   setMessage(artistMessage, '');
+
+  if (hide) {
+    artistForm.classList.add('hidden');
+  }
+}
+
+function createArtist() {
+  resetArtistForm({ hide: false });
+  artistForm.classList.remove('hidden');
+  artistForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function collectArtistData(avatarUrl, coverUrl) {
@@ -860,6 +871,7 @@ function setSelectValue(select, value) {
 }
 
 function editArtist(item) {
+  artistForm.classList.remove('hidden');
   artistForm.elements.id.value = item.id || '';
   artistForm.elements.stage_name.value = item.stage_name || '';
   artistForm.elements.real_name.value = item.real_name || '';
@@ -1126,6 +1138,7 @@ promotionStatusFilter.addEventListener('change', loadPromotions);
 bookingStatusFilter.addEventListener('change', loadBookings);
 artistForm.addEventListener('submit', saveArtist);
 artistResetBtn.addEventListener('click', resetArtistForm);
+artistCreateBtn.addEventListener('click', createArtist);
 artistStatusFilter.addEventListener('change', loadArtists);
 
 initCloud()

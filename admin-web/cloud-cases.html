@@ -226,15 +226,18 @@
               <h2>艺人管理</h2>
               <p>编辑艺人资料、封面与展示状态，并处理入驻审核。</p>
             </div>
-            <select id="artistStatusFilter">
-              <option value="pending">待审核</option>
-              <option value="">全部</option>
-              <option value="approved">已通过</option>
-              <option value="rejected">已驳回</option>
-            </select>
+            <div class="artist-head-actions">
+              <select id="artistStatusFilter">
+                <option value="pending">待审核</option>
+                <option value="">全部</option>
+                <option value="approved">已通过</option>
+                <option value="rejected">已驳回</option>
+              </select>
+              <button id="artistCreateBtn" type="button">新增艺人</button>
+            </div>
           </div>
           <div class="artist-manager-layout">
-            <form id="artistForm" class="news-form artist-form">
+            <form id="artistForm" class="news-form artist-form hidden">
               <input type="hidden" name="id">
               <label>艺名<input name="stage_name" required></label>
               <label>真实姓名<input name="real_name"></label>
@@ -304,7 +307,7 @@
               <label class="wide">驳回原因<textarea name="reject_reason" rows="2"></textarea></label>
               <div class="form-actions wide">
                 <button type="submit">保存艺人</button>
-                <button id="artistResetBtn" type="button" class="ghost">清空</button>
+                <button id="artistResetBtn" type="button" class="ghost">取消</button>
               </div>
               <p id="artistMessage" class="message wide"></p>
             </form>
