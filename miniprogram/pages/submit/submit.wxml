@@ -23,12 +23,26 @@
 
       <view class="form-field">
         <view class="form-label">所在城市</view>
-        <input name="city" placeholder="例如：福州" placeholder-class="input-placeholder" />
+        <picker mode="region" level="city" value="{{cityRegion}}" bindchange="onCityRegionChange">
+          <view class="picker-value {{form.city ? '' : 'placeholder'}}">{{form.city || '请选择省份和城市'}}</view>
+        </picker>
       </view>
 
       <view class="form-field">
         <view class="form-label">接受调度城市</view>
-        <input name="dispatch_cities" placeholder="例如：全国 / 上海、杭州、南京" placeholder-class="input-placeholder" />
+        <view class="dispatch-actions">
+          <view class="dispatch-option {{dispatchNationwide ? 'selected' : ''}}" bindtap="toggleDispatchNationwide">全国</view>
+          <picker mode="region" level="city" value="{{dispatchRegion}}" bindchange="onDispatchRegionChange">
+            <view class="dispatch-option dispatch-add">+ 添加城市</view>
+          </picker>
+        </view>
+        <view wx:if="{{dispatchCities.length}}" class="dispatch-city-list">
+          <view wx:for="{{dispatchCities}}" wx:key="*this" class="dispatch-city">
+            <text>{{item}}</text>
+            <text class="dispatch-remove" data-city="{{item}}" catchtap="removeDispatchCity">×</text>
+          </view>
+        </view>
+        <view wx:elif="{{!dispatchNationwide}}" class="dispatch-hint">可选择全国，或连续添加多个可调度城市</view>
       </view>
 
       <view class="form-field">

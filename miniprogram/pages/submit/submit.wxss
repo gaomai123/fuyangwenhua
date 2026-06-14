@@ -66,6 +66,57 @@
   font-weight: 700;
 }
 
+.dispatch-actions,
+.dispatch-city-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.dispatch-option,
+.dispatch-city {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1rpx solid rgba(255, 210, 143, 0.28);
+  border-radius: 999rpx;
+  box-sizing: border-box;
+  color: rgba(238, 245, 255, 0.78);
+  display: flex;
+  font-size: 24rpx;
+  height: 60rpx;
+  padding: 0 22rpx;
+}
+
+.dispatch-option.selected {
+  background: linear-gradient(135deg, rgba(233, 194, 125, 0.92), rgba(201, 147, 72, 0.92));
+  border-color: rgba(255, 225, 174, 0.72);
+  color: #171009;
+  font-weight: 700;
+}
+
+.dispatch-add {
+  color: #ffd58b;
+}
+
+.dispatch-city-list {
+  margin-top: 4rpx;
+}
+
+.dispatch-city {
+  gap: 12rpx;
+}
+
+.dispatch-remove {
+  color: #ffb1b1;
+  font-size: 32rpx;
+  line-height: 1;
+}
+
+.dispatch-hint {
+  color: rgba(238, 245, 255, 0.48);
+  font-size: 22rpx;
+}
+
 input,
 textarea,
 .picker-value {

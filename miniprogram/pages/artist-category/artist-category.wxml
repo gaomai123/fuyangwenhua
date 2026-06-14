@@ -38,13 +38,13 @@
     <picker range="{{categoryOptions}}" range-key="label" value="{{filterIndexes.category}}" data-field="category" data-options="categoryOptions" bindchange="onPickerFilterChange">
       <view class="picker-value {{filters.category ? '' : 'placeholder'}}">{{filters.category || placeholders.category}}</view>
     </picker>
-    <picker range="{{cityOptions}}" range-key="label" value="{{filterIndexes.city}}" data-field="city" data-options="cityOptions" bindchange="onPickerFilterChange">
+    <picker mode="region" level="city" data-field="city" bindchange="onRegionFilterChange">
       <view class="picker-value {{filters.city ? '' : 'placeholder'}}">{{filters.city || placeholders.city}}</view>
     </picker>
     <picker range="{{genderOptions}}" range-key="label" value="{{filterIndexes.gender}}" data-field="gender" data-options="genderOptions" bindchange="onPickerFilterChange">
       <view class="picker-value {{filters.gender ? '' : 'placeholder'}}">{{filters.gender || placeholders.gender}}</view>
     </picker>
-    <picker range="{{dispatchCityOptions}}" range-key="label" value="{{filterIndexes.dispatch_city}}" data-field="dispatch_city" data-options="dispatchCityOptions" bindchange="onPickerFilterChange">
+    <picker mode="region" level="city" data-field="dispatch_city" bindchange="onRegionFilterChange">
       <view class="picker-value {{filters.dispatch_city ? '' : 'placeholder'}}">{{filters.dispatch_city || placeholders.dispatch_city}}</view>
     </picker>
     <button class="ghost-button reset-button" bindtap="resetFilters">{{texts.reset}}</button>

@@ -73,7 +73,10 @@ exports.main = async (event) => {
     where.is_featured_guest = true;
   }
 
-  applyExactFilter(where, filters, 'city');
+  if (filters.city) {
+    where.city = regExp(filters.city);
+  }
+
   applyExactFilter(where, filters, 'gender');
   applyExactFilter(where, filters, 'singing_type');
   applyExactFilter(where, filters, 'category');
@@ -82,16 +85,22 @@ exports.main = async (event) => {
     where.work_status = filters.work_status;
   }
 
-  if (filters.dispatch_city) {
-    where.dispatch_cities = regExp(filters.dispatch_city);
-  }
-
   let condition = where;
+
+  if (filters.dispatch_city) {
+    condition = _.and([
+      condition,
+      _.or([
+        { dispatch_cities: regExp(filters.dispatch_city) },
+        { dispatch_cities: regExp('\u5168\u56fd') }
+      ])
+    ]);
+  }
 
   if (filters.keyword) {
     const keyword = filters.keyword;
     condition = _.and([
-      where,
+      condition,
       _.or([
         { stage_name: regExp(keyword) },
         { city: regExp(keyword) },

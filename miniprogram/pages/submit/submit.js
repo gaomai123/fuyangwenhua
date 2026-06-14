@@ -35,6 +35,10 @@ function getInitialUploadState() {
     avatarTemp: '',
     photoTemps: [],
     videoTemps: [],
+    cityRegion: [],
+    dispatchRegion: [],
+    dispatchCities: [],
+    dispatchNationwide: false,
     submitting: false,
     categoryIndex: -1,
     genderIndex: -1,
@@ -45,6 +49,7 @@ function getInitialUploadState() {
       selected: false
     })),
     form: {
+      city: '',
       category: '',
       gender: '',
       price: ''
@@ -151,6 +156,55 @@ Page({
     patch[field + 'Index'] = index;
     patch['form.' + field] = option || '';
     this.setData(patch);
+  },
+
+  getRegionCity(region) {
+    return String(region[1] || region[0] || '').trim();
+  },
+
+  onCityRegionChange(event) {
+    const region = event.detail.value || [];
+
+    this.setData({
+      cityRegion: region,
+      'form.city': this.getRegionCity(region)
+    });
+  },
+
+  onDispatchRegionChange(event) {
+    const region = event.detail.value || [];
+    const city = this.getRegionCity(region);
+
+    if (!city) {
+      return;
+    }
+
+    const dispatchCities = this.data.dispatchCities.includes(city)
+      ? this.data.dispatchCities
+      : this.data.dispatchCities.concat(city);
+
+    this.setData({
+      dispatchRegion: region,
+      dispatchCities,
+      dispatchNationwide: false
+    });
+  },
+
+  toggleDispatchNationwide() {
+    const dispatchNationwide = !this.data.dispatchNationwide;
+
+    this.setData({
+      dispatchNationwide,
+      dispatchCities: dispatchNationwide ? [] : this.data.dispatchCities
+    });
+  },
+
+  removeDispatchCity(event) {
+    const city = event.currentTarget.dataset.city;
+
+    this.setData({
+      dispatchCities: this.data.dispatchCities.filter((item) => item !== city)
+    });
   },
 
   toggleTag(event) {
@@ -271,6 +325,8 @@ Page({
 
   submitProfile(event) {
     const values = Object.assign({}, event.detail.value, {
+      city: this.data.form.city,
+      dispatch_cities: this.data.dispatchNationwide ? '全国' : this.data.dispatchCities.join('、'),
       category: this.data.form.category,
       gender: this.data.form.gender,
       price: this.data.form.price

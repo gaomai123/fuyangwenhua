@@ -46,27 +46,6 @@ Page({
       { label: '\u5609\u5bbe DJ', value: '\u5609\u5bbe DJ' },
       { label: '\u9a7b\u573aDJ', value: '\u9a7b\u573aDJ' }
     ],
-    cityOptions: [
-      { label: '\u5168\u90e8\u57ce\u5e02', value: '' },
-      { label: '\u5317\u4eac', value: '\u5317\u4eac' },
-      { label: '\u4e0a\u6d77', value: '\u4e0a\u6d77' },
-      { label: '\u5e7f\u5dde', value: '\u5e7f\u5dde' },
-      { label: '\u6df1\u5733', value: '\u6df1\u5733' },
-      { label: '\u676d\u5dde', value: '\u676d\u5dde' },
-      { label: '\u5357\u4eac', value: '\u5357\u4eac' },
-      { label: '\u6210\u90fd', value: '\u6210\u90fd' },
-      { label: '\u798f\u5dde', value: '\u798f\u5dde' },
-      { label: '\u53a6\u95e8', value: '\u53a6\u95e8' }
-    ],
-    dispatchCityOptions: [
-      { label: '\u5168\u90e8\u8c03\u5ea6', value: '' },
-      { label: '\u5168\u56fd', value: '\u5168\u56fd' },
-      { label: '\u534e\u4e1c', value: '\u534e\u4e1c' },
-      { label: '\u534e\u5357', value: '\u534e\u5357' },
-      { label: '\u534e\u5317', value: '\u534e\u5317' },
-      { label: '\u798f\u5efa', value: '\u798f\u5efa' },
-      { label: '\u6c5f\u6d59\u6caa', value: '\u6c5f\u6d59\u6caa' }
-    ],
     genderOptions: [
       { label: '\u5168\u90e8\u6027\u522b', value: '' },
       { label: '\u7537', value: '\u7537' },
@@ -174,6 +153,17 @@ Page({
     this.setData({
       [`filters.${field}`]: option.value,
       [`filterIndexes.${field}`]: index
+    });
+    this.loadArtists();
+  },
+
+  onRegionFilterChange(event) {
+    const field = event.currentTarget.dataset.field;
+    const region = event.detail.value || [];
+    const city = String(region[1] || region[0] || '').trim();
+
+    this.setData({
+      [`filters.${field}`]: city
     });
     this.loadArtists();
   },
