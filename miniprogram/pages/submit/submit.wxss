@@ -39,6 +39,58 @@
   font-size: 22rpx;
 }
 
+.tag-actions,
+.selected-tag-list {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.tag-add-button,
+.selected-tag {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1rpx solid rgba(255, 210, 143, 0.28);
+  border-radius: 999rpx;
+  box-sizing: border-box;
+  display: flex;
+  font-size: 24rpx;
+  height: 60rpx;
+  padding: 0 22rpx;
+}
+
+.tag-add-button {
+  color: #ffd58b;
+}
+
+.tag-count {
+  color: rgba(238, 245, 255, 0.48);
+  font-size: 22rpx;
+}
+
+.selected-tag {
+  background: rgba(212, 157, 75, 0.16);
+  border-color: rgba(255, 210, 143, 0.42);
+  color: #ffe0ab;
+  gap: 12rpx;
+}
+
+.selected-tag-remove {
+  color: #ffb1b1;
+  font-size: 32rpx;
+  line-height: 1;
+}
+
+.tag-picker-panel {
+  background: rgba(5, 10, 20, 0.24);
+  border: 1rpx solid rgba(255, 210, 143, 0.16);
+  border-radius: 16rpx;
+  display: grid;
+  gap: 12rpx;
+  padding: 16rpx;
+}
+
 .tag-options {
   display: flex;
   flex-wrap: wrap;

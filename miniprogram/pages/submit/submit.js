@@ -44,6 +44,7 @@ function getInitialUploadState() {
     genderIndex: -1,
     priceIndex: -1,
     selectedTags: [],
+    showTagOptions: false,
     tagOptions: tagLabels.map((label) => ({
       label,
       selected: false
@@ -207,6 +208,12 @@ Page({
     });
   },
 
+  toggleTagOptions() {
+    this.setData({
+      showTagOptions: !this.data.showTagOptions
+    });
+  },
+
   toggleTag(event) {
     const index = Number(event.currentTarget.dataset.index);
     const tagOptions = this.data.tagOptions.map((item) => ({ ...item }));
@@ -225,6 +232,19 @@ Page({
     }
 
     option.selected = !option.selected;
+
+    this.setData({
+      tagOptions,
+      selectedTags: tagOptions.filter((item) => item.selected).map((item) => item.label)
+    });
+  },
+
+  removeSelectedTag(event) {
+    const label = event.currentTarget.dataset.label;
+    const tagOptions = this.data.tagOptions.map((item) => ({
+      ...item,
+      selected: item.label === label ? false : item.selected
+    }));
 
     this.setData({
       tagOptions,

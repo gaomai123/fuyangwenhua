@@ -54,16 +54,30 @@
 
       <view class="form-field">
         <view class="form-label">风格标签</view>
-        <view class="tag-hint">可多选，最多选择 5 个</view>
-        <view class="tag-options">
-          <view
-            wx:for="{{tagOptions}}"
-            wx:key="label"
-            class="tag-option {{item.selected ? 'selected' : ''}}"
-            data-index="{{index}}"
-            bindtap="toggleTag"
-          >
-            {{item.label}}
+        <view wx:if="{{selectedTags.length}}" class="selected-tag-list">
+          <view wx:for="{{selectedTags}}" wx:key="*this" class="selected-tag">
+            <text>{{item}}</text>
+            <text class="selected-tag-remove" data-label="{{item}}" catchtap="removeSelectedTag">×</text>
+          </view>
+        </view>
+        <view class="tag-actions">
+          <view class="tag-add-button" bindtap="toggleTagOptions">
+            {{showTagOptions ? '收起标签' : '+ 添加标签'}}
+          </view>
+          <view class="tag-count">{{selectedTags.length}} / 5</view>
+        </view>
+        <view wx:if="{{showTagOptions}}" class="tag-picker-panel">
+          <view class="tag-hint">可多选，最多选择 5 个</view>
+          <view class="tag-options">
+            <view
+              wx:for="{{tagOptions}}"
+              wx:key="label"
+              class="tag-option {{item.selected ? 'selected' : ''}}"
+              data-index="{{index}}"
+              bindtap="toggleTag"
+            >
+              {{item.label}}
+            </view>
           </view>
         </view>
       </view>
