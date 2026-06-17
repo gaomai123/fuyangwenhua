@@ -1,6 +1,6 @@
 .festival-page {
-  background: #dfe5ec;
-  color: #17202c;
+  background: rgba(5, 10, 20, 0.08);
+  color: #f7f8fb;
   min-height: 100vh;
   overflow-x: hidden;
   padding-left: 22rpx;
@@ -20,9 +20,9 @@
 }
 
 .brand-logo {
-  filter: drop-shadow(0 8rpx 16rpx rgba(157, 86, 12, 0.22));
-  height: 116rpx;
-  width: 330rpx;
+  filter: drop-shadow(0 8rpx 14rpx rgba(0, 0, 0, 0.28));
+  height: 92rpx;
+  width: 172rpx;
 }
 
 .hero-card,
@@ -32,13 +32,13 @@
 .contact-card,
 .lead-section {
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(205, 214, 225, 0.46)),
-    rgba(255, 255, 255, 0.36);
-  border: 1rpx solid rgba(255, 214, 151, 0.72);
-  border-radius: 18rpx;
+    linear-gradient(145deg, rgba(21, 29, 41, 0.94), rgba(10, 16, 26, 0.9)),
+    radial-gradient(circle at 85% 0%, rgba(217, 170, 98, 0.16), transparent 38%);
+  border: 1rpx solid rgba(255, 255, 255, 0.09);
+  border-radius: 22rpx;
   box-shadow:
-    0 16rpx 34rpx rgba(48, 58, 75, 0.18),
-    inset 0 1rpx 0 rgba(255, 255, 255, 0.72);
+    0 18rpx 42rpx rgba(0, 0, 0, 0.24),
+    inset 0 0 0 1rpx rgba(255, 255, 255, 0.04);
   overflow: hidden;
 }
 
@@ -99,7 +99,7 @@
 
 .section-heading {
   align-items: center;
-  color: #111827;
+  color: #f2f4f7;
   display: flex;
   font-size: 34rpx;
   font-weight: 900;
@@ -109,7 +109,7 @@
 }
 
 .heading-mark {
-  background: linear-gradient(135deg, #b9610b, #f5b14d);
+  background: linear-gradient(135deg, #e9c27d, #c99348);
   border-radius: 4rpx 12rpx 12rpx 4rpx;
   height: 20rpx;
   transform: skewX(-18deg);
@@ -128,7 +128,7 @@
 }
 
 .intro-text {
-  color: #1f2937;
+  color: rgba(226, 232, 240, 0.76);
   font-size: 26rpx;
   line-height: 1.75;
 }
@@ -137,8 +137,8 @@
   align-items: center;
   background:
     radial-gradient(circle at 50% 50%, rgba(245, 177, 77, 0.28), transparent 46%),
-    rgba(255, 255, 255, 0.22);
-  border: 1rpx solid rgba(255, 255, 255, 0.6);
+    rgba(255, 255, 255, 0.045);
+  border: 1rpx solid rgba(255, 255, 255, 0.08);
   border-radius: 16rpx;
   display: flex;
   height: 150rpx;
@@ -147,7 +147,7 @@
 }
 
 .music-note {
-  color: #d98517;
+  color: #e1b56d;
   font-size: 72rpx;
   font-weight: 900;
   position: relative;
@@ -155,7 +155,7 @@
 }
 
 .orbit {
-  border: 2rpx solid rgba(217, 133, 23, 0.34);
+  border: 2rpx solid rgba(225, 181, 109, 0.32);
   border-radius: 50%;
   position: absolute;
 }
@@ -226,9 +226,9 @@
 }
 
 .case-tag {
-  background: linear-gradient(135deg, #d98517, #f7c46b);
+  background: linear-gradient(135deg, #e9c27d, #c99348);
   border-radius: 0 0 12rpx 0;
-  color: #fff;
+  color: #171009;
   font-size: 22rpx;
   font-weight: 900;
   left: 0;
@@ -247,7 +247,7 @@
 }
 
 .case-title {
-  color: #111827;
+  color: #f2f4f7;
   display: -webkit-box;
   font-size: 24rpx;
   font-weight: 900;
@@ -260,7 +260,7 @@
 }
 
 .case-location {
-  color: #4b5563;
+  color: rgba(226, 232, 240, 0.58);
   display: -webkit-box;
   font-size: 19rpx;
   height: 50rpx;
@@ -273,14 +273,14 @@
 }
 
 .case-desc {
-  color: #374151;
+  color: rgba(226, 232, 240, 0.66);
   font-size: 21rpx;
   line-height: 1.55;
   margin-top: 10rpx;
 }
 
 .case-link {
-  color: #b9610b;
+  color: #d7aa66;
   font-size: 22rpx;
   font-weight: 800;
   margin-top: 12rpx;
@@ -304,9 +304,9 @@
 
 .mode-icon {
   align-items: center;
-  border: 2rpx solid rgba(217, 133, 23, 0.62);
+  border: 2rpx solid rgba(225, 181, 109, 0.46);
   border-radius: 16rpx;
-  color: #d98517;
+  color: #e1b56d;
   display: flex;
   font-size: 28rpx;
   font-weight: 900;
@@ -316,14 +316,14 @@
 }
 
 .mode-title {
-  color: #111827;
+  color: #f2f4f7;
   font-size: 24rpx;
   font-weight: 900;
   margin-top: 14rpx;
 }
 
 .mode-desc {
-  color: #4b5563;
+  color: rgba(226, 232, 240, 0.58);
   font-size: 19rpx;
   line-height: 1.35;
   margin-top: 6rpx;
@@ -341,8 +341,8 @@
 }
 
 .contact-item {
-  background: rgba(255, 255, 255, 0.34);
-  border: 1rpx solid rgba(129, 140, 155, 0.24);
+  background: rgba(255, 255, 255, 0.055);
+  border: 1rpx solid rgba(255, 255, 255, 0.09);
   border-radius: 14rpx;
   box-sizing: border-box;
   display: block;
@@ -354,13 +354,13 @@
 }
 
 .contact-label {
-  color: #4b5563;
+  color: rgba(226, 232, 240, 0.58);
   font-size: 23rpx;
   line-height: 1.25;
 }
 
 .contact-value {
-  color: #111827;
+  color: #f2f4f7;
   font-size: 26rpx;
   font-weight: 800;
   line-height: 1.28;
@@ -375,10 +375,10 @@
 }
 
 .contact-btn {
-  background: linear-gradient(135deg, #d98517, #f0b45f);
+  background: linear-gradient(135deg, #e9c27d, #c99348);
   border-radius: 999rpx;
   box-sizing: border-box;
-  color: #fff;
+  color: #171009;
   display: block;
   font-size: 22rpx;
   font-weight: 800;
@@ -414,7 +414,7 @@
 }
 
 .label {
-  color: #8a4b12;
+  color: #d7aa66;
   font-size: 22rpx;
   font-weight: 700;
   margin-bottom: 10rpx;
@@ -423,11 +423,11 @@
 .input,
 .picker-box,
 .textarea {
-  background: rgba(255, 255, 255, 0.58);
-  border: 1rpx solid rgba(129, 140, 155, 0.32);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1rpx solid rgba(255, 255, 255, 0.11);
   border-radius: 10rpx;
   box-sizing: border-box;
-  color: #111827;
+  color: #f8fbff;
   font-size: 25rpx;
   width: 100%;
 }
@@ -446,15 +446,15 @@
 }
 
 .input-placeholder {
-  color: rgba(75, 85, 99, 0.48);
+  color: rgba(238, 245, 255, 0.42);
   font-size: 24rpx;
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #d98517, #f1b75b);
+  background: linear-gradient(135deg, #e9c27d, #c99348);
   border-radius: 999rpx;
-  box-shadow: 0 10rpx 24rpx rgba(157, 86, 12, 0.25);
-  color: #fff;
+  box-shadow: 0 10rpx 24rpx rgba(0, 0, 0, 0.24);
+  color: #171009;
   font-size: 27rpx;
   font-weight: 900;
   height: 82rpx;

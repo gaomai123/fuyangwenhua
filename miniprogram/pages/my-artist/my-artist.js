@@ -30,6 +30,23 @@ const statusOptions = [
   }
 ];
 
+function normalizeArtist(artist) {
+  if (!artist) {
+    return null;
+  }
+
+  const displayTags = String(artist.tags || '')
+    .split(',')
+    .map((tag) => tag.trim())
+    .filter((tag) => tag && tag !== artist.category)
+    .join('、');
+
+  return {
+    ...artist,
+    display_tags: displayTags || '-'
+  };
+}
+
 Page({
   data: {
     loading: true,
@@ -51,7 +68,7 @@ Page({
       const result = await getMyArtistProfile();
 
       this.setData({
-        artist: result.data,
+        artist: normalizeArtist(result.data),
         loading: false
       });
     } catch (error) {

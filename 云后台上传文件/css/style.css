@@ -348,6 +348,37 @@ label {
   margin-bottom: 4px;
 }
 
+.artist-card.is-hidden {
+  opacity: 0.68;
+}
+
+.artist-state-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.artist-state {
+  background: #f3f4f6;
+  border-radius: 999px;
+  color: #4b5563;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 9px;
+}
+
+.artist-media-preview {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.artist-media-preview .media-thumb-button {
+  height: 96px;
+  width: 96px;
+}
+
 .log-list {
   display: grid;
   gap: 12px;
@@ -933,6 +964,14 @@ label {
   .booking-head {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .artist-manager-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .artist-form {
+    position: static;
   }
 
   .topbar-actions,

@@ -841,7 +841,6 @@ function collectArtistData(avatarUrl, coverUrl) {
     dispatch_cities: artistForm.elements.dispatch_cities.value.trim(),
     category: artistForm.elements.category.value,
     tags: artistForm.elements.tags.value.trim(),
-    singing_type: artistForm.elements.singing_type.value.trim(),
     gender: artistForm.elements.gender.value,
     age: artistForm.elements.age.value.trim(),
     height: artistForm.elements.height.value.trim(),
@@ -880,7 +879,6 @@ function editArtist(item) {
   artistForm.elements.dispatch_cities.value = item.dispatch_cities || '';
   artistForm.elements.category.value = item.category || '歌手';
   artistForm.elements.tags.value = item.tags || '';
-  artistForm.elements.singing_type.value = item.singing_type || '';
   artistForm.elements.gender.value = item.gender || '';
   artistForm.elements.age.value = item.age || '';
   artistForm.elements.height.value = item.height || '';
@@ -960,7 +958,7 @@ function renderArtist(item) {
     <dl class="info-grid compact">
       <div><dt>真实姓名</dt><dd>${escapeHtml(item.real_name || '-')}</dd></div>
       <div><dt>报价</dt><dd>${escapeHtml(item.price || '-')}</dd></div>
-      <div><dt>唱功类型</dt><dd>${escapeHtml(item.singing_type || '-')}</dd></div>
+      <div><dt>风格标签</dt><dd>${escapeHtml(item.tags || '-')}</dd></div>
       <div><dt>调度城市</dt><dd>${escapeHtml(item.dispatch_cities || '-')}</dd></div>
     </dl>
     <p class="bio">${escapeHtml(item.bio || '暂无简介')}</p>

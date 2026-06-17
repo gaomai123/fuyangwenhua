@@ -52,16 +52,6 @@ Page({
       { label: '\u5973', value: '\u5973' },
       { label: '\u5176\u4ed6', value: '\u5176\u4ed6' }
     ],
-    singingTypeOptions: [
-      { label: '\u5168\u90e8\u5531\u529f', value: '' },
-      { label: '\u6d41\u884c', value: '\u6d41\u884c' },
-      { label: '\u6c11\u8c23', value: '\u6c11\u8c23' },
-      { label: '\u6447\u6eda', value: '\u6447\u6eda' },
-      { label: '\u8bf4\u5531', value: '\u8bf4\u5531' },
-      { label: '\u7235\u58eb', value: '\u7235\u58eb' },
-      { label: '\u6c11\u65cf', value: '\u6c11\u65cf' },
-      { label: '\u5176\u4ed6', value: '\u5176\u4ed6' }
-    ],
     categoryOptions: [
       { label: '\u5168\u90e8\u7c7b\u578b', value: '' },
       { label: '\u6b4c\u624b', value: '\u6b4c\u624b' },
@@ -81,7 +71,6 @@ Page({
       city: '',
       dispatch_city: '',
       gender: '',
-      singing_type: '',
       category: '',
       keyword: ''
     },
@@ -89,14 +78,12 @@ Page({
       city: 0,
       dispatch_city: 0,
       gender: 0,
-      singing_type: 0,
       category: 0
     },
     placeholders: {
       city: '\u6240\u5728\u57ce\u5e02',
       dispatch_city: '\u63a5\u53d7\u8c03\u5ea6\u57ce\u5e02',
       gender: '\u6027\u522b',
-      singing_type: '\u5531\u529f\u7c7b\u578b',
       category: '\u827a\u4eba\u7c7b\u578b',
       keyword: '\u641c\u7d22\u827a\u540d / \u98ce\u683c / \u57ce\u5e02'
     },
@@ -104,7 +91,7 @@ Page({
   },
 
   onShow() {
-    if (this.hasLoaded && this.lastLoadedAt && Date.now() - this.lastLoadedAt < 30000) {
+    if (this.hasLoaded) {
       return;
     }
 
@@ -175,7 +162,6 @@ Page({
         city: '',
         dispatch_city: '',
         gender: '',
-        singing_type: '',
         category: '',
         keyword: ''
       },
@@ -183,7 +169,6 @@ Page({
         city: 0,
         dispatch_city: 0,
         gender: 0,
-        singing_type: 0,
         category: 0
       }
     });
@@ -192,7 +177,7 @@ Page({
 
   buildFilters() {
     const filters = {};
-    const { status, city, dispatch_city, gender, singing_type, category, keyword } = this.data.filters;
+    const { status, city, dispatch_city, gender, category, keyword } = this.data.filters;
 
     if (status) {
       filters.work_status = status;
@@ -208,10 +193,6 @@ Page({
 
     if (gender) {
       filters.gender = gender;
-    }
-
-    if (singing_type) {
-      filters.singing_type = singing_type;
     }
 
     if (category) {
@@ -230,7 +211,7 @@ Page({
     const tagList = String(artist.tags || '')
       .split(',')
       .map((tag) => tag.trim())
-      .filter(Boolean);
+      .filter((tag) => tag && tag !== artist.category);
 
     return {
       ...artist,
@@ -243,11 +224,43 @@ Page({
     };
   },
 
+  downloadCloudFile(fileID) {
+    if (!fileID || !/^cloud:\/\//.test(fileID)) {
+      return Promise.reject(new Error('没有可下载的云文件'));
+    }
+
+    return wx.cloud.downloadFile({ fileID }).then((result) => result.tempFilePath);
+  },
+
+  onAvatarError(event) {
+    const index = Number(event.currentTarget.dataset.index);
+    const artist = this.data.artists[index];
+
+    if (!artist || !artist.avatar_file_id) {
+      return;
+    }
+
+    this.downloadCloudFile(artist.avatar_file_id)
+      .then((tempFilePath) => {
+        this.setData({
+          [`artists[${index}].avatar_url`]: tempFilePath
+        });
+      })
+      .catch(() => {
+        this.setData({
+          [`artists[${index}].avatar_url`]: artist.avatar_file_id
+        });
+      });
+  },
+
   async loadArtists() {
     this.setData({ loading: true });
 
     try {
-      const result = await getArtists(this.buildFilters());
+      const result = await getArtists({
+        ...this.buildFilters(),
+        light_media: true
+      });
 
       this.setData({
         artists: (result.data || []).map((artist) => this.normalizeArtist(artist))

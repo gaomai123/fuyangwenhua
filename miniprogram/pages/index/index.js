@@ -132,10 +132,17 @@ Page({
         .map((item) => item.trim())
         .find(Boolean) || '';
     };
+    const coverFileID =
+      firstImage(artist.art_photo_file_ids) ||
+      firstImage(artist.photo_file_ids) ||
+      firstImage(artist.life_photo_file_ids) ||
+      artist.avatar_file_id ||
+      '';
 
     return {
       ...artist,
       salary_display: artist.salary_display || artist.price || '\u9762\u8bae',
+      cover_file_id: coverFileID,
       cover_url:
         firstImage(artist.art_photo_file_ids) ||
         firstImage(artist.art_photo_urls) ||
@@ -227,6 +234,24 @@ Page({
     const artist = this.data.recommendedArtists[index];
 
     if (!artist) {
+      return;
+    }
+
+    const fileID = artist.cover_file_id || artist.avatar_file_id;
+    if (fileID && /^cloud:\/\//.test(fileID)) {
+      wx.cloud.downloadFile({ fileID })
+        .then((result) => {
+          this.setData({
+            [`recommendedArtists[${index}].cover_url`]: result.tempFilePath,
+            [`recommendedArtists[${index}].cover_failed`]: true
+          });
+        })
+        .catch(() => {
+          this.setData({
+            [`recommendedArtists[${index}].cover_url`]: artist.cover_fallback_url || '/images/home-entry-artists.jpg',
+            [`recommendedArtists[${index}].cover_failed`]: true
+          });
+        });
       return;
     }
 

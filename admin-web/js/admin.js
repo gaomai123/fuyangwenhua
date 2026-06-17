@@ -232,7 +232,6 @@ function renderArtist(artist) {
     'age',
     'gender',
     'category',
-    'singing_type',
     'bio',
     'price',
     'video_url',

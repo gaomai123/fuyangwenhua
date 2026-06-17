@@ -49,7 +49,7 @@
     <view class="info-list">
       <view class="info-row"><text>性别</text><text>{{artist.gender || '-'}}</text></view>
       <view class="info-row"><text>艺人类型</text><text>{{artist.category || '-'}}</text></view>
-      <view class="info-row"><text>唱功类型</text><text>{{artist.singing_type || '-'}}</text></view>
+      <view class="info-row"><text>风格标签</text><text>{{artist.display_tags}}</text></view>
       <view class="info-row"><text>调度城市</text><text>{{artist.dispatch_cities || '-'}}</text></view>
       <view class="info-row"><text>参考薪资</text><text>{{artist.salary_display || '面议'}}</text></view>
       <view class="info-row"><text>当前状态</text><text>{{workStatusText[artist.work_status] || artist.work_status}}</text></view>

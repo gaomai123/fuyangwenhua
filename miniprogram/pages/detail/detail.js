@@ -11,28 +11,38 @@ function parsePhotos(value) {
     .filter(Boolean);
 }
 
+function parseFileIds(value) {
+  return parsePhotos(value).filter((item) => /^cloud:\/\//.test(item));
+}
+
 function isPlayableVideoUrl(value) {
   const url = String(value || '').trim();
 
-  return /^cloud:\/\//.test(url) || /\/uploads\/videos\//.test(url) || /\.(mp4|mov|m4v|webm)(\?|$)/i.test(url);
+  return /^wxfile:\/\//.test(url) || /^http/.test(url) || /^cloud:\/\//.test(url) || /\/uploads\/videos\//.test(url) || /\.(mp4|mov|m4v|webm)(\?|$)/i.test(url);
 }
 
-function parseVideos(value) {
-  return parsePhotos(value).map((url) => ({
+function parseVideos(value, fileIds = []) {
+  return parsePhotos(value).map((url, index) => ({
     url,
+    fileID: fileIds[index] || (/^cloud:\/\//.test(url) ? url : ''),
+    loadingLocal: false,
     playable: isPlayableVideoUrl(url)
   }));
 }
 
 function normalizeArtist(artist) {
   const canBook = !!artist.can_book;
+  const displayTags = (Array.isArray(artist.tags) ? artist.tags : String(artist.tags || '').split(','))
+    .map((tag) => String(tag).trim())
+    .filter((tag) => tag && tag !== artist.category)
+    .join('、');
 
   return {
     ...artist,
     display_salary: artist.salary_display || artist.price || '\u9762\u8bae',
     display_bio: artist.bio || '\u6682\u65e0\u7b80\u4ecb',
     display_category: artist.category || artist.tags || '\u97f3\u4e50\u4eba',
-    display_singing_type: artist.singing_type || '-',
+    display_tags: displayTags || '-',
     display_dispatch: artist.dispatch_cities || artist.city || '\u5168\u56fd',
     status_label: canBook ? '\u53ef\u9884\u7ea6' : '\u5df2\u4e0b\u5e97',
     status_class: canBook ? 'bookable' : 'closed',
@@ -47,7 +57,9 @@ Page({
   data: {
     artist: null,
     artPhotos: [],
+    artPhotoFileIds: [],
     lifePhotos: [],
+    lifePhotoFileIds: [],
     videos: [],
     videoIsPlayable: false,
     loading: true,
@@ -60,7 +72,7 @@ Page({
       height: '\u8eab\u9ad8',
       city: '\u6240\u5728\u57ce\u5e02',
       category: '\u827a\u4eba\u7c7b\u578b',
-      singingType: '\u5531\u529f\u7c7b\u578b',
+      tags: '\u98ce\u683c\u6807\u7b7e',
       dispatch: '\u63a5\u53d7\u8c03\u5ea6\u57ce\u5e02',
       salary: '\u53c2\u8003\u85aa\u8d44',
       bio: '\u827a\u4eba\u7b80\u4ecb',
@@ -93,12 +105,18 @@ Page({
       const legacyPhotos = parsePhotos(result.data.photo_urls);
       const artPhotos = parsePhotos(result.data.art_photo_urls);
       const lifePhotos = parsePhotos(result.data.life_photo_urls);
-      const videos = parseVideos(result.data.video_urls || result.data.video_url);
+      const legacyPhotoFileIds = parseFileIds(result.data.photo_file_ids);
+      const artPhotoFileIds = parseFileIds(result.data.art_photo_file_ids);
+      const lifePhotoFileIds = parseFileIds(result.data.life_photo_file_ids);
+      const videoFileIds = parseFileIds(result.data.video_file_ids);
+      const videos = parseVideos(result.data.video_urls || result.data.video_url, videoFileIds);
 
       this.setData({
         artist,
         artPhotos: artPhotos.length ? artPhotos : legacyPhotos,
+        artPhotoFileIds: artPhotoFileIds.length ? artPhotoFileIds : legacyPhotoFileIds,
         lifePhotos,
+        lifePhotoFileIds,
         videos,
         videoIsPlayable: videos.some((item) => item.playable),
         loading: false
@@ -110,6 +128,87 @@ Page({
         icon: 'none'
       });
     }
+  },
+
+  downloadCloudFile(fileID) {
+    if (!fileID || !/^cloud:\/\//.test(fileID)) {
+      return Promise.reject(new Error('没有可下载的云文件'));
+    }
+
+    return wx.cloud.downloadFile({ fileID }).then((result) => result.tempFilePath);
+  },
+
+  onHeroImageError() {
+    const artist = this.data.artist || {};
+
+    if (!artist.avatar_file_id || artist.avatar_url === artist.avatar_file_id) {
+      return;
+    }
+
+    this.downloadCloudFile(artist.avatar_file_id)
+      .then((tempFilePath) => {
+        this.setData({
+          'artist.avatar_url': tempFilePath
+        });
+      })
+      .catch(() => {
+        this.setData({
+          'artist.avatar_url': artist.avatar_file_id
+        });
+      });
+  },
+
+  onPhotoError(event) {
+    const group = event.currentTarget.dataset.group;
+    const index = Number(event.currentTarget.dataset.index);
+    const listKey = group === 'life' ? 'lifePhotos' : 'artPhotos';
+    const fileIds = group === 'life' ? this.data.lifePhotoFileIds : this.data.artPhotoFileIds;
+    const fileID = fileIds[index];
+
+    if (!fileID) {
+      return;
+    }
+
+    this.downloadCloudFile(fileID)
+      .then((tempFilePath) => {
+        this.setData({
+          [`${listKey}[${index}]`]: tempFilePath
+        });
+      })
+      .catch(() => {
+        this.setData({
+          [`${listKey}[${index}]`]: fileID
+        });
+      });
+  },
+
+  onVideoError(event) {
+    const index = Number(event.currentTarget.dataset.index);
+    const video = this.data.videos[index];
+
+    if (!video || !video.fileID || video.loadingLocal) {
+      return;
+    }
+
+    this.setData({
+      [`videos[${index}].loadingLocal`]: true
+    });
+
+    this.downloadCloudFile(video.fileID)
+      .then((tempFilePath) => {
+        this.setData({
+          [`videos[${index}].url`]: tempFilePath,
+          [`videos[${index}].playable`]: true,
+          [`videos[${index}].loadingLocal`]: false,
+          videoIsPlayable: true
+        });
+      })
+      .catch(() => {
+        this.setData({
+          [`videos[${index}].url`]: video.fileID,
+          [`videos[${index}].loadingLocal`]: false
+        });
+      });
   },
 
   previewPhoto(event) {

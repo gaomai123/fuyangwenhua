@@ -81,6 +81,12 @@ Page({
     this.loadArtists();
   },
 
+  onShow() {
+    if (this.hasLoaded) {
+      return;
+    }
+  },
+
   findOptionIndex(optionsKey, value) {
     const index = this.data[optionsKey].findIndex((item) => item.value === value);
 
@@ -179,7 +185,7 @@ Page({
     const tagList = String(artist.tags || '')
       .split(',')
       .map((tag) => tag.trim())
-      .filter(Boolean);
+      .filter((tag) => tag && tag !== artist.category);
 
     return {
       ...artist,
@@ -192,15 +198,49 @@ Page({
     };
   },
 
+  downloadCloudFile(fileID) {
+    if (!fileID || !/^cloud:\/\//.test(fileID)) {
+      return Promise.reject(new Error('没有可下载的云文件'));
+    }
+
+    return wx.cloud.downloadFile({ fileID }).then((result) => result.tempFilePath);
+  },
+
+  onAvatarError(event) {
+    const index = Number(event.currentTarget.dataset.index);
+    const artist = this.data.artists[index];
+
+    if (!artist || !artist.avatar_file_id) {
+      return;
+    }
+
+    this.downloadCloudFile(artist.avatar_file_id)
+      .then((tempFilePath) => {
+        this.setData({
+          [`artists[${index}].avatar_url`]: tempFilePath
+        });
+      })
+      .catch(() => {
+        this.setData({
+          [`artists[${index}].avatar_url`]: artist.avatar_file_id
+        });
+      });
+  },
+
   async loadArtists() {
     this.setData({ loading: true });
 
     try {
-      const result = await getArtists(this.buildFilters());
+      const result = await getArtists({
+        ...this.buildFilters(),
+        light_media: true
+      });
 
       this.setData({
         artists: (result.data || []).map((artist) => this.normalizeArtist(artist))
       });
+      this.hasLoaded = true;
+      this.lastLoadedAt = Date.now();
     } catch (error) {
       wx.showToast({
         title: error.message,

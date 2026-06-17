@@ -55,7 +55,14 @@
 
   <view wx:else class="artist-list">
     <view wx:for="{{artists}}" wx:key="id" class="artist-card" data-id="{{item.id}}" bindtap="goDetail">
-      <image wx:if="{{item.avatar_url}}" class="avatar" src="{{item.avatar_url}}" mode="aspectFill"></image>
+      <image
+        wx:if="{{item.avatar_url}}"
+        class="avatar"
+        src="{{item.avatar_url}}"
+        mode="aspectFill"
+        binderror="onAvatarError"
+        data-index="{{index}}"
+      ></image>
       <view wx:else class="avatar placeholder">{{texts.artistFallback}}</view>
       <view class="artist-info">
         <view class="artist-title">
@@ -68,7 +75,6 @@
           <text>{{item.display_category}}</text>
         </view>
         <view class="tag-row">
-          <text wx:if="{{item.singing_type}}">{{item.singing_type}}</text>
           <text wx:for="{{item.tag_list}}" wx:key="*this">{{item}}</text>
         </view>
         <view class="dispatch">{{texts.dispatchLabel}}{{item.dispatch_display}}</view>

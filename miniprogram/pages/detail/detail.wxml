@@ -6,7 +6,13 @@
 
   <view wx:elif="{{artist}}" class="detail">
     <view class="profile-hero">
-      <image wx:if="{{artist.avatar_url}}" class="hero-image" src="{{artist.avatar_url}}" mode="aspectFill"></image>
+      <image
+        wx:if="{{artist.avatar_url}}"
+        class="hero-image"
+        src="{{artist.avatar_url}}"
+        mode="aspectFill"
+        binderror="onHeroImageError"
+      ></image>
       <view wx:else class="hero-image placeholder">A</view>
       <view class="hero-panel">
         <view class="hero-name-row">
@@ -19,8 +25,8 @@
           <text>{{artist.display_category}}</text>
         </view>
         <view class="hero-line">
-          <text>{{texts.singingType}}</text>
-          <text>{{artist.display_singing_type}}</text>
+          <text>{{texts.tags}}</text>
+          <text>{{artist.display_tags}}</text>
         </view>
         <view class="hero-line">
           <text>{{texts.dispatch}}</text>
@@ -41,7 +47,7 @@
         <view><text class="label">{{texts.height}}</text><text>{{artist.height || '-'}}</text></view>
         <view><text class="label">{{texts.city}}</text><text>{{artist.city || '-'}}</text></view>
         <view><text class="label">{{texts.category}}</text><text>{{artist.display_category}}</text></view>
-        <view><text class="label">{{texts.singingType}}</text><text>{{artist.display_singing_type}}</text></view>
+        <view><text class="label">{{texts.tags}}</text><text>{{artist.display_tags}}</text></view>
       </view>
     </view>
 
@@ -53,14 +59,34 @@
     <view wx:if="{{artPhotos.length}}" class="section">
       <view class="section-title">{{texts.artPhotos}}</view>
       <scroll-view scroll-x class="photo-scroll">
-        <image wx:for="{{artPhotos}}" wx:key="*this" src="{{item}}" mode="aspectFill" bindtap="previewPhoto" data-url="{{item}}" data-group="art"></image>
+        <image
+          wx:for="{{artPhotos}}"
+          wx:key="*this"
+          src="{{item}}"
+          mode="aspectFill"
+          bindtap="previewPhoto"
+          binderror="onPhotoError"
+          data-index="{{index}}"
+          data-url="{{item}}"
+          data-group="art"
+        ></image>
       </scroll-view>
     </view>
 
     <view wx:if="{{lifePhotos.length}}" class="section">
       <view class="section-title">{{texts.lifePhotos}}</view>
       <scroll-view scroll-x class="photo-scroll">
-        <image wx:for="{{lifePhotos}}" wx:key="*this" src="{{item}}" mode="aspectFill" bindtap="previewPhoto" data-url="{{item}}" data-group="life"></image>
+        <image
+          wx:for="{{lifePhotos}}"
+          wx:key="*this"
+          src="{{item}}"
+          mode="aspectFill"
+          bindtap="previewPhoto"
+          binderror="onPhotoError"
+          data-index="{{index}}"
+          data-url="{{item}}"
+          data-group="life"
+        ></image>
       </scroll-view>
     </view>
 
@@ -74,6 +100,8 @@
         src="{{item.url}}"
         controls
         object-fit="contain"
+        binderror="onVideoError"
+        data-index="{{index}}"
       ></video>
     </view>
 

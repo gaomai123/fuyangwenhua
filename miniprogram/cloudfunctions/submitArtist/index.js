@@ -17,7 +17,6 @@ const allowedFields = [
   'height',
   'age',
   'gender',
-  'singing_type',
   'price',
   'bio',
   'video_url',
@@ -35,13 +34,11 @@ function cleanString(value) {
 
 function normalizeTags(value, category) {
   const raw = Array.isArray(value) ? value : cleanString(value).split(',');
-  const tags = raw.map((item) => cleanString(item)).filter(Boolean);
+  const tags = raw
+    .map((item) => cleanString(item))
+    .filter((item) => item && item !== category);
 
-  if (category && !tags.includes(category)) {
-    tags.unshift(category);
-  }
-
-  return tags;
+  return [...new Set(tags)];
 }
 
 function pickProfile(profile) {
@@ -81,7 +78,6 @@ exports.main = async (event, context) => {
   data.category = category;
   data.tags = normalizeTags(data.tags, category);
   data.gender = cleanString(data.gender);
-  data.singing_type = cleanString(data.singing_type);
   data.height = cleanString(data.height);
   data.age = cleanString(data.age);
   data.price = cleanString(data.price);
