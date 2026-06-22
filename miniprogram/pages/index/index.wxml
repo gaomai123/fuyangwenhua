@@ -18,14 +18,21 @@
     bindchange="onBannerChange"
   >
     <swiper-item wx:for="{{banners}}" wx:key="titleLine1">
-      <view class="hero-card {{item.tone}}">
+      <view class="hero-card {{item.tone}}" data-type="{{item.type}}" bindtap="goBanner">
         <image class="hero-image" src="{{item.image}}" mode="aspectFill"></image>
         <view class="hero-mask"></view>
-        <view class="hero-content">
-          <view class="hero-title">{{item.titleLine1}}<br />{{item.titleLine2}}</view>
+        <view class="hero-content {{item.adClass}}">
+          <view class="hero-title {{item.adClass}}">{{item.titleLine1}}<br />{{item.titleLine2}}</view>
           <view class="hero-desc">{{item.desc}}</view>
+          <view wx:if="{{item.points}}" class="hero-points">
+            <view wx:for="{{item.points}}" wx:key="*this" class="hero-point">
+              <text class="hero-point-index">{{index + 1}}</text>
+              <text>{{item}}</text>
+            </view>
+          </view>
           <view class="hero-mark">{{item.mark}}</view>
         </view>
+        <view wx:if="{{item.type}}" class="hero-action">查看 ></view>
       </view>
     </swiper-item>
   </swiper>
@@ -46,6 +53,18 @@
       <view class="entry-shade"></view>
       <view class="entry-title">{{item.title}}</view>
       <view class="entry-desc">{{item.desc}}</view>
+      <view wx:if="{{item.links}}" class="entry-link-row">
+        <view
+          wx:for="{{item.links}}"
+          wx:key="label"
+          class="entry-link-button"
+          data-type="{{item.type}}"
+          data-category="{{item.category}}"
+          catchtap="goEntryLink"
+        >
+          {{item.label}}
+        </view>
+      </view>
       <view class="entry-arrow">></view>
     </view>
   </view>
@@ -103,8 +122,22 @@
           <view class="notice-title">{{item.title}}</view>
           <view wx:if="{{item.desc}}" class="notice-desc">{{item.desc}}</view>
         </view>
-        <view wx:if="{{item.type}}" class="notice-action">查看 ›</view>
+        <view wx:if="{{item.iconNotice}}" class="notice-info-icon">!</view>
+        <view wx:if="{{item.type && !item.iconNotice}}" class="notice-action">查看 ›</view>
       </view>
+    </view>
+  </view>
+
+  <view wx:if="{{showDisclaimerModal}}" class="disclaimer-mask" catchtap="closeDisclaimer">
+    <view class="disclaimer-panel" catchtap="noop">
+      <view class="disclaimer-head">
+        <view class="disclaimer-title">平台免责声明</view>
+        <view class="disclaimer-close" catchtap="closeDisclaimer">×</view>
+      </view>
+      <scroll-view scroll-y enhanced class="disclaimer-scroll">
+        <view class="disclaimer-text">{{disclaimerContent}}</view>
+      </scroll-view>
+      <view class="disclaimer-confirm" catchtap="closeDisclaimer">我知道了</view>
     </view>
   </view>
 

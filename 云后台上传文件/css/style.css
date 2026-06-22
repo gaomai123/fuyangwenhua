@@ -327,6 +327,34 @@ label {
   max-width: 180px;
 }
 
+.import-panel {
+  align-items: center;
+  background: #fff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(220px, 1fr) minmax(220px, 320px) auto;
+  margin-top: 14px;
+  padding: 16px;
+}
+
+.import-panel h3,
+.import-panel p {
+  margin: 0;
+}
+
+.import-panel h3 {
+  color: #111827;
+  font-size: 16px;
+}
+
+.import-panel p {
+  color: #6b7280;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
 .artist-head-actions {
   align-items: center;
   display: flex;
@@ -960,6 +988,7 @@ label {
 @media (max-width: 800px) {
   .topbar,
   .panel-head,
+  .import-panel,
   .artist-card-header,
   .booking-head {
     align-items: stretch;
@@ -1026,5 +1055,9 @@ label {
 
   .panel-head select {
     max-width: none;
+  }
+
+  .import-panel {
+    grid-template-columns: 1fr;
   }
 }

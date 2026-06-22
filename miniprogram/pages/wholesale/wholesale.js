@@ -10,6 +10,14 @@ Page({
     activeCategory: ''
   },
 
+  onLoad(options = {}) {
+    const category = decodeURIComponent(options.category || '');
+
+    if (category) {
+      this.setData({ activeCategory: category });
+    }
+  },
+
   onShow() {
     if (this.hasLoaded && Date.now() - this.lastLoadedAt < 30000) {
       return;
@@ -48,7 +56,10 @@ Page({
       return products;
     }
 
-    return products.filter((item) => item.category === activeCategory);
+    return products.filter((item) => {
+      const category = String(item.category || '');
+      return category === activeCategory || category.includes(activeCategory);
+    });
   },
 
   async loadProducts(force = false) {
@@ -65,7 +76,7 @@ Page({
 
       this.setData({
         products,
-        filteredProducts: this.getFilteredProducts(products),
+        filteredProducts: this.getFilteredProducts(products, this.data.activeCategory),
         categories
       });
       this.hasLoaded = true;

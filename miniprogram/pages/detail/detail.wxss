@@ -53,11 +53,32 @@
   justify-content: space-between;
 }
 
+.name-wrap {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  min-width: 0;
+}
+
 .name {
   color: #ffffff;
   font-size: 48rpx;
   font-weight: 800;
   line-height: 1.12;
+}
+
+.fuyang-badge {
+  background: linear-gradient(135deg, rgba(246, 213, 139, 0.22), rgba(201, 141, 47, 0.28));
+  border: 1rpx solid rgba(236, 190, 103, 0.66);
+  border-radius: 999rpx;
+  color: #f4cf8b;
+  flex: 0 0 auto;
+  font-size: 21rpx;
+  font-weight: 700;
+  line-height: 1;
+  padding: 8rpx 13rpx;
 }
 
 .status {

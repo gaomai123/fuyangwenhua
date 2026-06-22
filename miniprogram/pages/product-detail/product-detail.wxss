@@ -35,10 +35,28 @@
   padding: 24rpx;
 }
 
+.detail-meta-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
 .detail-category {
   color: #67d3ed;
   font-size: 22rpx;
   font-weight: 900;
+}
+
+.detail-brand {
+  background: rgba(217, 170, 98, 0.14);
+  border: 1rpx solid rgba(217, 170, 98, 0.4);
+  border-radius: 999rpx;
+  color: #e8bf7b;
+  font-size: 22rpx;
+  font-weight: 900;
+  line-height: 1;
+  padding: 8rpx 14rpx;
 }
 
 .detail-name {

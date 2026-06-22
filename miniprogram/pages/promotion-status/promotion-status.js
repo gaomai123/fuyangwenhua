@@ -10,17 +10,39 @@ Page({
     this.loadApplications();
   },
 
-  formatDate(value) {
-    if (!value) return '';
-    if (value instanceof Date) {
-      return `${value.getFullYear()}-${value.getMonth() + 1}-${value.getDate()} ${value.getHours()}:${String(value.getMinutes()).padStart(2, '0')}`;
+  normalizeDate(value) {
+    if (!value) return null;
+    if (value instanceof Date) return value;
+
+    if (typeof value === 'number') {
+      const timestamp = value < 10000000000 ? value * 1000 : value;
+      const date = new Date(timestamp);
+      return Number.isNaN(date.getTime()) ? null : date;
     }
-    return String(value).slice(0, 16).replace('T', ' ');
+
+    if (typeof value === 'object') {
+      const raw = value.$date || value._date || value.date || value.time || value.timestamp;
+      return this.normalizeDate(raw);
+    }
+
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? null : date;
+  },
+
+  padTime(value) {
+    return String(value).padStart(2, '0');
+  },
+
+  formatDate(value) {
+    const date = this.normalizeDate(value);
+    if (!date) return '';
+
+    return `${date.getFullYear()}-${this.padTime(date.getMonth() + 1)}-${this.padTime(date.getDate())} ${this.padTime(date.getHours())}:${this.padTime(date.getMinutes())}`;
   },
 
   getTimeValue(value) {
-    const parsed = new Date(value || 0).getTime();
-    return Number.isNaN(parsed) ? 0 : parsed;
+    const date = this.normalizeDate(value);
+    return date ? date.getTime() : 0;
   },
 
   async loadApplications() {

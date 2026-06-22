@@ -10,7 +10,7 @@ function normalizeProduct(item) {
   return {
     ...item,
     id: item._id,
-    price_text: '批发价联系我们'
+    price_text: item.price_text || '批发价联系我们'
   };
 }
 
@@ -41,7 +41,7 @@ exports.main = async (event = {}) => {
     const result = await db
       .collection('wholesale_products')
       .where(where)
-      .limit(100)
+      .limit(200)
       .get();
 
     const data = result.data

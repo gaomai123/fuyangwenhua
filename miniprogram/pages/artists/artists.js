@@ -72,7 +72,8 @@ Page({
       dispatch_city: '',
       gender: '',
       category: '',
-      keyword: ''
+      keyword: '',
+      featured_only: false
     },
     filterIndexes: {
       city: 0,
@@ -88,6 +89,27 @@ Page({
       keyword: '\u641c\u7d22\u827a\u540d / \u98ce\u683c / \u57ce\u5e02'
     },
     loading: false
+  },
+
+  onLoad(options = {}) {
+    if (options.library === 'fuyang') {
+      this.setData({
+        'texts.eyebrow': 'Fuyangwenhua Artists',
+        'texts.title': '\u798f\u6d0b\u827a\u4eba\u5e93',
+        'texts.subtitle': '\u798f\u6d0b\u6587\u5316\u65d7\u4e0b\u7cbe\u9009\u827a\u4eba',
+        'filters.featured_only': true
+      });
+      return;
+    }
+
+    if (options.library === 'nationwide') {
+      this.setData({
+        'texts.eyebrow': 'National Artist Library',
+        'texts.title': '\u5168\u56fd\u827a\u4eba\u5e93',
+        'texts.subtitle': '\u516c\u5f00\u5e73\u53f0 / \u5728\u7ebf\u9884\u7ea6',
+        'filters.featured_only': false
+      });
+    }
   },
 
   onShow() {
@@ -163,7 +185,8 @@ Page({
         dispatch_city: '',
         gender: '',
         category: '',
-        keyword: ''
+        keyword: '',
+        featured_only: this.data.filters.featured_only
       },
       filterIndexes: {
         city: 0,
@@ -177,7 +200,11 @@ Page({
 
   buildFilters() {
     const filters = {};
-    const { status, city, dispatch_city, gender, category, keyword } = this.data.filters;
+    const { status, city, dispatch_city, gender, category, keyword, featured_only } = this.data.filters;
+
+    if (featured_only) {
+      filters.featured_only = true;
+    }
 
     if (status) {
       filters.work_status = status;

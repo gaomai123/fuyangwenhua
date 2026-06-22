@@ -398,9 +398,16 @@ input {
   justify-content: space-between;
 }
 
+.name-wrap {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  gap: 10rpx;
+  min-width: 0;
+}
+
 .name {
   color: #ffffff;
-  flex: 1;
   font-size: 36rpx;
   font-weight: 700;
   line-height: 1.2;
@@ -408,6 +415,18 @@ input {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.fuyang-badge {
+  background: linear-gradient(135deg, rgba(246, 213, 139, 0.22), rgba(201, 141, 47, 0.28));
+  border: 1rpx solid rgba(236, 190, 103, 0.66);
+  border-radius: 999rpx;
+  color: #f4cf8b;
+  flex: 0 0 auto;
+  font-size: 20rpx;
+  font-weight: 700;
+  line-height: 1;
+  padding: 7rpx 12rpx;
 }
 
 .status {
@@ -587,6 +606,12 @@ input {
   font-size: 32rpx;
   font-weight: 700;
   text-shadow: none;
+}
+
+.fuyang-badge {
+  background: rgba(208, 154, 70, 0.16);
+  border-color: rgba(224, 179, 109, 0.52);
+  color: #e9c57f;
 }
 
 .status {

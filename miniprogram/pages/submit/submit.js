@@ -76,7 +76,7 @@ function buildInitialData() {
     '驻场DJ'
   ];
   state.genderOptions = ['男', '女', '其他'];
-  state.salaryOptions = ['400-500', '500-600', '600-700'];
+  state.salaryOptions = ['200-300', '300-400', '400-500', '500-600', '600-700'];
   state.unreadNotificationCount = 0;
   state.unreadNotificationText = '';
 

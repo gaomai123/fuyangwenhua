@@ -21,7 +21,10 @@
     </swiper>
 
     <view class="detail-panel">
-      <view class="detail-category">{{product.category}}</view>
+      <view class="detail-meta-row">
+        <view class="detail-category">{{product.category}}</view>
+        <view wx:if="{{product.brand}}" class="detail-brand">{{product.brand}}</view>
+      </view>
       <view class="detail-name">{{product.name}}</view>
       <view class="detail-price">{{product.price_text}}</view>
       <view class="detail-summary">{{product.summary}}</view>

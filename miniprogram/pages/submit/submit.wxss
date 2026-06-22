@@ -169,6 +169,12 @@
   font-size: 22rpx;
 }
 
+.salary-note {
+  color: rgba(238, 245, 255, 0.52);
+  font-size: 22rpx;
+  line-height: 1.45;
+}
+
 input,
 textarea,
 .picker-value {

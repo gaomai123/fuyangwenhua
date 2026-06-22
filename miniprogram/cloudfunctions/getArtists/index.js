@@ -110,6 +110,7 @@ function normalizeArtist(artist, mediaMap, options = {}) {
     bio: artist.bio || '',
     work_status: artist.work_status || 'available',
     can_book: isArtistBookable(artist),
+    is_featured_guest: artist.is_featured_guest === true,
     avatar_url: mediaMap[avatar] || avatar,
     avatar_file_id: avatar,
     photo_urls: options.lightMedia ? photoUrls : applyMediaMap(photoUrls, mediaMap),

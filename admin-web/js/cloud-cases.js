@@ -27,6 +27,8 @@ const productMessage = document.querySelector('#productMessage');
 const productResetBtn = document.querySelector('#productResetBtn');
 const productStatusFilter = document.querySelector('#productStatusFilter');
 const seedProductsBtn = document.querySelector('#seedProductsBtn');
+const productCsvInput = document.querySelector('#productCsvInput');
+const importProductsBtn = document.querySelector('#importProductsBtn');
 
 const leadList = document.querySelector('#leadList');
 const leadStatusFilter = document.querySelector('#leadStatusFilter');
@@ -547,6 +549,7 @@ function collectProductData(coverUrl) {
     id: productForm.elements.id.value.trim(),
     name: productForm.elements.name.value.trim(),
     category: productForm.elements.category.value.trim(),
+    brand: productForm.elements.brand.value.trim(),
     cover_url: coverUrl,
     image_urls: productForm.elements.image_urls.value.trim(),
     summary: productForm.elements.summary.value.trim(),
@@ -559,10 +562,90 @@ function collectProductData(coverUrl) {
   };
 }
 
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let value = '';
+  let quoted = false;
+
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+    const next = text[index + 1];
+
+    if (char === '"') {
+      if (quoted && next === '"') {
+        value += '"';
+        index += 1;
+      } else {
+        quoted = !quoted;
+      }
+    } else if (char === ',' && !quoted) {
+      row.push(value);
+      value = '';
+    } else if ((char === '\n' || char === '\r') && !quoted) {
+      if (char === '\r' && next === '\n') {
+        index += 1;
+      }
+      row.push(value);
+      if (row.some((item) => item.trim())) {
+        rows.push(row);
+      }
+      row = [];
+      value = '';
+    } else {
+      value += char;
+    }
+  }
+
+  row.push(value);
+  if (row.some((item) => item.trim())) {
+    rows.push(row);
+  }
+
+  return rows;
+}
+
+function mapProductImportRow(row) {
+  const aliases = {
+    name: ['name', '产品名称'],
+    category: ['category', '分类'],
+    brand: ['brand', '品牌'],
+    cover_url: ['cover_url', '封面地址', '封面图'],
+    image_urls: ['image_urls', '详情图片地址', '详情图片'],
+    summary: ['summary', '产品摘要', '简介'],
+    specs: ['specs', '规格参数'],
+    detail: ['detail', '产品详情', '详情说明'],
+    contact_wechat: ['contact_wechat', '联系微信', '微信'],
+    contact_phone: ['contact_phone', '联系电话', '电话'],
+    status: ['status', '状态'],
+    sort_order: ['sort_order', '排序']
+  };
+  const product = {};
+
+  Object.keys(aliases).forEach((field) => {
+    const key = aliases[field].find((name) => Object.prototype.hasOwnProperty.call(row, name));
+    product[field] = key ? String(row[key] || '').trim() : '';
+  });
+
+  product.status = ['draft', 'published', 'hidden'].includes(product.status) ? product.status : 'draft';
+  product.sort_order = Number(product.sort_order || 0);
+  return product;
+}
+
+function readTextFile(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || '').replace(/^\uFEFF/, ''));
+    reader.onerror = () => reject(new Error('读取 CSV 文件失败'));
+    reader.readAsText(file, 'utf-8');
+  });
+}
+
 function editProduct(item) {
   productForm.elements.id.value = item.id || '';
   productForm.elements.name.value = item.name || '';
   productForm.elements.category.value = item.category || '';
+  productForm.elements.brand.value = item.brand || '';
   productForm.elements.cover_url.value = item.cover_url || '';
   productForm.elements.image_urls.value = item.image_urls || '';
   productForm.elements.summary.value = item.summary || '';
@@ -617,6 +700,7 @@ function renderProduct(item) {
       <p>${escapeHtml(item.summary || '暂无摘要')}</p>
       <div class="news-meta">
         <span>批发价联系我们</span>
+        <span>品牌：${escapeHtml(item.brand || '-')}</span>
         <span>排序：${escapeHtml(item.sort_order || 0)}</span>
         <span>微信：${escapeHtml(item.contact_wechat || '-')}</span>
         <span>电话：${escapeHtml(item.contact_phone || '-')}</span>
@@ -672,6 +756,52 @@ async function seedProducts() {
     setMessage(productMessage, `已导入 ${result.count || 0} 个示例产品`, 'success');
   } catch (error) {
     setMessage(productMessage, error.message || '导入失败', 'error');
+  }
+}
+
+async function importProductsFromCsv() {
+  const file = productCsvInput.files && productCsvInput.files[0];
+
+  if (!file) {
+    setMessage(productMessage, '请选择 CSV 文件', 'error');
+    return;
+  }
+
+  try {
+    setMessage(productMessage, '正在读取 CSV...');
+    const text = await readTextFile(file);
+    const rows = parseCsv(text);
+
+    if (rows.length < 2) {
+      throw new Error('CSV 至少需要表头和一行产品数据');
+    }
+
+    const headers = rows[0].map((item) => item.trim());
+    const products = rows.slice(1)
+      .map((cells) => {
+        const row = {};
+        headers.forEach((header, index) => {
+          row[header] = cells[index] || '';
+        });
+        return mapProductImportRow(row);
+      })
+      .filter((item) => item.name && item.category);
+
+    if (!products.length) {
+      throw new Error('没有找到可导入的产品，请检查产品名称和分类列');
+    }
+
+    if (!confirm(`确认导入 ${products.length} 个产品吗？`)) {
+      setMessage(productMessage, '已取消导入');
+      return;
+    }
+
+    const result = await callAdmin('importProducts', { products });
+    productCsvInput.value = '';
+    await loadProducts();
+    setMessage(productMessage, `已导入 ${result.count || products.length} 个产品`, 'success');
+  } catch (error) {
+    setMessage(productMessage, error.message || 'CSV 导入失败', 'error');
   }
 }
 
@@ -953,7 +1083,7 @@ function renderArtist(item) {
     <div class="artist-state-row">
       <span class="artist-state">${escapeHtml(item.work_status === 'available' ? '可预约 / 待岗' : item.work_status === 'on_duty' ? '已下店' : '暂停接单')}</span>
       <span class="artist-state">${item.is_hidden ? '已隐藏' : '小程序展示中'}</span>
-      <span class="artist-state">${item.is_featured_guest ? '飞行嘉宾艺人' : '普通艺人'}</span>
+      <span class="artist-state">${item.is_featured_guest ? '嘉宾艺人' : '普通艺人'}</span>
     </div>
     <dl class="info-grid compact">
       <div><dt>真实姓名</dt><dd>${escapeHtml(item.real_name || '-')}</dd></div>
@@ -992,7 +1122,7 @@ function renderArtist(item) {
   addAction(actions, '设为下店', 'ghost', () => updateArtistState(item.id, { work_status: 'on_duty' }));
   addAction(
     actions,
-    item.is_featured_guest ? '取消飞行嘉宾' : '设为飞行嘉宾',
+    item.is_featured_guest ? '取消嘉宾艺人' : '设为嘉宾艺人',
     item.is_featured_guest ? 'ghost' : '',
     () => updateArtistState(item.id, { is_featured_guest: !item.is_featured_guest })
   );
@@ -1131,6 +1261,7 @@ productForm.addEventListener('submit', saveProduct);
 productResetBtn.addEventListener('click', resetProductForm);
 productStatusFilter.addEventListener('change', loadProducts);
 seedProductsBtn.addEventListener('click', seedProducts);
+importProductsBtn.addEventListener('click', importProductsFromCsv);
 leadStatusFilter.addEventListener('change', loadLeads);
 promotionStatusFilter.addEventListener('change', loadPromotions);
 bookingStatusFilter.addEventListener('change', loadBookings);

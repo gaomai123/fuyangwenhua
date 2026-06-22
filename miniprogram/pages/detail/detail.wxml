@@ -16,7 +16,10 @@
       <view wx:else class="hero-image placeholder">A</view>
       <view class="hero-panel">
         <view class="hero-name-row">
-          <view class="name">{{artist.stage_name}}</view>
+          <view class="name-wrap">
+            <view class="name">{{artist.stage_name}}</view>
+            <view wx:if="{{artist.is_featured_guest}}" class="fuyang-badge">福洋艺人</view>
+          </view>
           <view class="status {{artist.status_class}}">{{artist.status_label}}</view>
         </view>
         <view class="meta-row">

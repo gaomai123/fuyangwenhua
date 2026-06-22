@@ -32,7 +32,7 @@ exports.main = async (event = {}) => {
       data: {
         ...item,
         id: item._id,
-        price_text: '批发价联系我们'
+        price_text: item.price_text || '批发价联系我们'
       }
     };
   } catch (error) {

@@ -120,6 +120,7 @@ function normalizeProduct(input) {
   return {
     name: cleanString(input.name),
     category: cleanString(input.category),
+    brand: cleanString(input.brand),
     cover_url: cleanString(input.cover_url),
     image_urls: cleanString(input.image_urls),
     summary: cleanString(input.summary),
@@ -240,6 +241,7 @@ function mapProduct(item) {
   return {
     ...item,
     id: item._id,
+    brand: item.brand || '',
     price_text: '批发价联系我们'
   };
 }
@@ -305,6 +307,35 @@ async function saveProduct(event) {
   const result = await db.collection('wholesale_products').add({ data });
   await writeOperationLog(event, 'product.create', { id: result._id, name: data.name, status: data.status });
   return { id: result._id };
+}
+
+async function importProducts(event) {
+  const products = Array.isArray(event.products) ? event.products : [];
+
+  if (!products.length) {
+    throw new Error('没有可导入的产品');
+  }
+
+  if (products.length > 100) {
+    throw new Error('单次最多导入 100 个产品');
+  }
+
+  const ids = [];
+
+  for (let index = 0; index < products.length; index += 1) {
+    const data = normalizeProduct(products[index]);
+
+    if (!data.name || !data.category) {
+      throw new Error(`第 ${index + 1} 行缺少产品名称或分类`);
+    }
+
+    data.created_at = db.serverDate();
+    const result = await db.collection('wholesale_products').add({ data });
+    ids.push(result._id);
+  }
+
+  await writeOperationLog(event, 'product.import', { ids, count: ids.length });
+  return { ids, count: ids.length };
 }
 
 async function saveArtist(event) {
@@ -658,6 +689,8 @@ exports.main = async (event = {}) => {
       data = await listCollection('wholesale_products', event, mapProduct, sortByOrder);
     } else if (action === 'saveProduct') {
       data = await saveProduct(event);
+    } else if (action === 'importProducts') {
+      data = await importProducts(event);
     } else if (action === 'updateProductStatus') {
       data = await updateDocStatus('wholesale_products', event, ['draft', 'published', 'hidden'], 'product.status');
     } else if (action === 'deleteProduct') {

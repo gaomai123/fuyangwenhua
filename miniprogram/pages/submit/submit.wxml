@@ -29,9 +29,12 @@
       </view>
 
       <view class="form-field">
-        <view class="form-label">接受调度城市</view>
+        <view class="form-label">接受调度地区</view>
         <view class="dispatch-actions">
           <view class="dispatch-option {{dispatchNationwide ? 'selected' : ''}}" bindtap="toggleDispatchNationwide">全国</view>
+          <picker mode="region" level="province" value="{{dispatchRegion}}" bindchange="onDispatchRegionChange">
+            <view class="dispatch-option dispatch-add">+ 添加省份</view>
+          </picker>
           <picker mode="region" level="city" value="{{dispatchRegion}}" bindchange="onDispatchRegionChange">
             <view class="dispatch-option dispatch-add">+ 添加城市</view>
           </picker>
@@ -42,7 +45,7 @@
             <text class="dispatch-remove" data-city="{{item}}" catchtap="removeDispatchCity">×</text>
           </view>
         </view>
-        <view wx:elif="{{!dispatchNationwide}}" class="dispatch-hint">可选择全国，或连续添加多个可调度城市</view>
+        <view wx:elif="{{!dispatchNationwide}}" class="dispatch-hint">可选择全国，也可添加省份或具体城市</view>
       </view>
 
       <view class="form-field">
@@ -136,6 +139,7 @@
         <picker range="{{salaryOptions}}" data-field="price" bindchange="onPickerChange">
           <view class="picker-value {{form.price ? '' : 'placeholder'}}">{{form.price ? form.price : '请选择薪资范围'}}</view>
         </picker>
+        <view class="salary-note">备注：期望薪资请结合个人专业能力、从业经历合理填报</view>
       </view>
 
       <view class="upload-block">

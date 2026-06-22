@@ -13,7 +13,7 @@ const cases = [
   },
   {
     id: 'youth-wave',
-    tag: '新',
+    tag: '热',
     title: '潮音青年音乐节',
     location: '广州 / 长隆度假区',
     desc: '聚焦青年文化与品牌互动，打造沉浸式音乐现场和商业合作体验区。',
@@ -23,22 +23,12 @@ const cases = [
   },
   {
     id: 'city-beat',
-    tag: '城',
+    tag: '热',
     title: '城市节拍音乐节',
     location: '成都 / 东郊记忆',
     desc: '城市地标联动，音乐、生活方式与文旅商业共振传播。',
     detail: '围绕城市更新空间和周末消费场景，提供从策划、招商、艺人、舞美到现场运营的一体化执行方案。',
     image: '/images/festival-cover.jpg',
-    video_url: ''
-  },
-  {
-    id: 'island-summer',
-    tag: '夏',
-    title: '海岛夏日音乐节',
-    location: '平潭 / 海坛古城外场',
-    desc: '围绕海岛旅游旺季打造落日舞台、民谣演出和青年社交内容。',
-    detail: '项目结合海岛度假、夜游消费和本地文旅推广，配置落日民谣、电子派对、互动市集和短视频传播节点。',
-    image: '/images/home-entry-festival.jpg',
     video_url: ''
   }
 ];

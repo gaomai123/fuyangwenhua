@@ -13,6 +13,7 @@ miniprogram/project.private.config.json
 *.sqlite3
 
 # Uploaded local files
+upload-staging/
 server/uploads/avatars/*
 server/uploads/photos/*
 server/uploads/videos/*

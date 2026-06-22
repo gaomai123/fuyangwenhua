@@ -18,19 +18,25 @@ Page({
         title: '音乐节合作\n共创音乐现场新体验',
         subtitle: '整合资源 x 创意运营 x 品牌共赢',
         mark: 'FUYANGWENHUA',
-        image: '/images/festival-cover.jpg'
+        image: '/images/festival-banner-shantou-group.jpg'
       },
       {
         title: '城市音乐节\n打造地标级现场声浪',
         subtitle: '艺人统筹 x 舞台执行 x 票务营销',
         mark: 'CITY MUSIC FESTIVAL',
-        image: '/images/home-entry-festival.jpg'
+        image: '/images/festival-banner-mall-crowd.jpg'
       },
       {
         title: '品牌音乐现场\n让年轻人主动靠近品牌',
         subtitle: '内容共创 x 场景植入 x 商业转化',
         mark: 'BRAND LIVE SHOW',
-        image: '/images/festival-cover.jpg'
+        image: '/images/festival-banner-stage-crowd.jpg'
+      },
+      {
+        title: '星光舞台\n记录每一次沸腾',
+        subtitle: '现场影像 x 舞台视觉 x 品牌露出',
+        mark: 'STARLIGHT LIVE',
+        image: '/images/festival-banner-starlight-stage.jpg'
       }
     ],
     cases: festivalCases,

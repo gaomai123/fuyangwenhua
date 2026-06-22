@@ -36,7 +36,10 @@
         binderror="onCoverError"
       ></image>
       <view class="product-body">
-        <view class="product-category">{{item.category}}</view>
+        <view class="product-meta-row">
+          <view class="product-category">{{item.category}}</view>
+          <view wx:if="{{item.brand}}" class="product-brand">{{item.brand}}</view>
+        </view>
         <view class="product-name">{{item.name}}</view>
         <view class="product-summary">{{item.summary}}</view>
         <view class="product-bottom">
